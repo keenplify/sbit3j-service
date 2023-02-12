@@ -1,11 +1,7 @@
-import { DateTime } from 'luxon'
-import { BaseModel, beforeSave, column } from '@ioc:Adonis/Lucid/Orm'
-import Hash from '@ioc:Adonis/Core/Hash'
+import { column } from '@ioc:Adonis/Lucid/Orm'
+import Authenticatable from 'App/Core/Models/Authenticatable'
 
-export default class Coach extends BaseModel {
-  @column({ isPrimary: true })
-  public id: number
-
+export default class Coach extends Authenticatable {
   @column()
   public firstName: string
 
@@ -20,20 +16,4 @@ export default class Coach extends BaseModel {
 
   @column()
   public phone: string
-
-  @column()
-  public password: string
-
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
-
-  @beforeSave()
-  public static async hashPassword(model: any) {
-    if (model.$dirty.password) {
-      model.password = await Hash.make(model.password)
-    }
-  }
 }
