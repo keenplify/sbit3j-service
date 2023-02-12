@@ -10,8 +10,6 @@ import {
 import Event from '@ioc:Adonis/Core/Event'
 
 export default class Model extends BaseModel {
-  public static selfAssignPrimaryKey = true
-
   constructor(data?: any) {
     super()
     this.merge(data)
