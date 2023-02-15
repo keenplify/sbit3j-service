@@ -3,7 +3,6 @@ import Coach from 'App/Models/Coach'
 import { CoachResource } from 'App/Resources/CoachResource'
 import LoginValidator from 'App/Validators/CoachesAuth/LoginValidator'
 import RegisterValidator from 'App/Validators/CoachesAuth/RegisterValidator'
-import Config from '@ioc:Adonis/Core/Config'
 
 export default class CoachesAuthController {
   public async login({ request, response, auth }: HttpContextContract) {
@@ -25,11 +24,8 @@ export default class CoachesAuthController {
     const guard = auth.use('coach')
 
     const coach = await Coach.create(values)
-    console.log(coach.id)
 
-    const payload = await guard.generate(coach, {
-      expiresIn: Config.get('auth.expiry'),
-    })
+    const payload = await guard.generate(coach)
 
     const resource = CoachResource.make(payload.user).additional({
       access: payload.toJSON(),
