@@ -4,6 +4,8 @@ import { CoachResource } from 'App/Resources/CoachResource'
 import StoreValidator from 'App/Validators/Coaches/StoreValidator'
 import UpdateValidator from 'App/Validators/Coaches/UpdateValidator'
 
+// Hello
+
 export default class CoachesController {
   public async index({ response }: HttpContextContract) {
     const coaches = await Coach.query()
