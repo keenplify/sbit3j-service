@@ -5,13 +5,15 @@ import Env from '@ioc:Adonis/Core/Env'
 import Subscription from 'App/Models/Subscription'
 import currency from 'currency.js'
 import { PaymongoEventSchema } from 'App/Core/Zodios/Models/Paymongo/Event'
+import { PaymongoPaymentAttributes } from 'App/Core/Zodios/Models/Paymongo/Payment'
 
 export default class PaymongoWebhookController {
   public async webhook({ request }: HttpContextContract) {
-    const { attributes, type } = PaymongoEventSchema.parse(request.body())
+    const { data } = PaymongoEventSchema.parse(request.body())
 
-    switch (type) {
+    switch (data.attributes.type) {
       case 'payment.paid': {
+        const attributes = data.attributes.data.attributes as PaymongoPaymentAttributes
         if (attributes.status === 'paid' && attributes.metadata?.subscriptionId) {
           const subscription = await Subscription.findOrFail(attributes.metadata.subscriptionId)
 
@@ -61,5 +63,6 @@ export default class PaymongoWebhookController {
     }
 
     return response.json(paymentIntent)
+    // TODO - Redirect back to app
   }
 }

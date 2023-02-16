@@ -1,11 +1,20 @@
-import { PaymongoPaymentAttributesSchema } from 'App/Core/Zodios/Models/Paymongo/Payment'
 import { PaymongoWebhookEvents } from 'App/Enums/PaymongoWebhookEvents'
 import { z } from 'zod'
 
-export const PaymongoEventSchema = z.object({
-  id: z.string(),
+export const PaymongoEventAttributesSchema = z.object({
   type: z.enum(PaymongoWebhookEvents),
-  attributes: PaymongoPaymentAttributesSchema,
+  livemode: z.boolean(),
+  data: z.object({
+    attributes: z.any(),
+  }),
+})
+
+export const PaymongoEventSchema = z.object({
+  data: z.object({
+    id: z.string(),
+    type: z.enum(['event']),
+    attributes: PaymongoEventAttributesSchema,
+  }),
 })
 
 export type PaymongoEvent = z.infer<typeof PaymongoEventSchema>

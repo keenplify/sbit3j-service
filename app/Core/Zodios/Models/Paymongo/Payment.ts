@@ -14,4 +14,4 @@ export const PaymongoPaymentAttributesSchema = z.object({
   metadata: PaymongoMetadataSchema.optional(),
 })
 
-export type PaymongoPayment = z.infer<typeof PaymongoPaymentAttributesSchema>
+export type PaymongoPaymentAttributes = z.infer<typeof PaymongoPaymentAttributesSchema>

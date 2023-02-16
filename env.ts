@@ -35,5 +35,5 @@ export default Env.rules({
   REDIS_PASSWORD: Env.schema.string.optional(),
   PAYMONGO_PUBLIC_KEY: Env.schema.string(),
   PAYMONGO_SECRET_KEY: Env.schema.string(),
-  PAYMONGO_WEBHOOK_ENDPOINT: Env.schema.string(),
+  SERVER_URL: Env.schema.string(),
 })

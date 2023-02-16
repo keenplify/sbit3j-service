@@ -22,12 +22,6 @@ Route.group(() => {
     })
       .prefix('subscriptions')
       .as('subscriptions')
-
-    Route.group(() => {
-      Route.post('attach', 'PaymentIntentsController.attach').as('attach')
-    })
-      .prefix('payment-intents')
-      .as('payment-intents')
   }).middleware('auth:client')
 })
   .prefix('v1/client')

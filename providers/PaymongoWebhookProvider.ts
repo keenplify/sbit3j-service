@@ -39,7 +39,7 @@ export default class PaymongoWebhookProvider {
           data: {
             attributes: {
               events: ['payment.paid'],
-              url: Env.get('PAYMONGO_WEBHOOK_ENDPOINT'),
+              url: `${Env.get('SERVER_URL')}/v1/paymongo/webhook`,
             },
           },
         },

@@ -1,5 +1,6 @@
 import { schema, rules, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { PaymentMethods } from 'App/Enums/PaymentMethods'
 
 export default class InitializeValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -27,6 +28,7 @@ export default class InitializeValidator {
     subscriptionProductId: schema.number([
       rules.exists({ table: 'subscription_products', column: 'id' }),
     ]),
+    paymentMethodId: schema.string(),
   })
 
   /**

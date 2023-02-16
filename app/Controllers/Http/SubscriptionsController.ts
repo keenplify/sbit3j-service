@@ -9,12 +9,12 @@ import { paymongo } from 'App/Services/PaymongoService'
 import Database from '@ioc:Adonis/Lucid/Database'
 export default class SubscriptionsController {
   /**
-   * Creates a subscription and returns a subscription together with the payment intent to be paid
+   * Creates a subscription and returns a subscription together with the payment intent to be paid which has already attached payment method
    */
   public async initialize({ request, response, auth }: HttpContextContract) {
     const client = auth.use('client').user!
 
-    const { subscriptionProductId } = await request.validate(InitializeValidator)
+    const { subscriptionProductId, paymentMethodId } = await request.validate(InitializeValidator)
 
     const trx = await Database.transaction()
 
@@ -50,7 +50,31 @@ export default class SubscriptionsController {
         },
       })
 
-      const resource = SubscriptionResource.make(subscription).additional({ paymentIntent })
+      const attach = await paymongo.attachToPaymentIntent({
+        headers: {
+          Authorization: Env.get('PAYMONGO_SECRET_KEY'),
+        },
+        params: {
+          id: paymentIntent.data.id,
+        },
+        body: {
+          data: {
+            attributes: {
+              client_key: paymentIntent.data.attributes.client_key,
+              payment_method: paymentMethodId,
+              return_url: `${Env.get('SERVER_URL')}/v1/paymongo/handle-redirect`,
+            },
+          },
+        },
+      })
+
+      const resource = SubscriptionResource.make(subscription)
+
+      if (attach.data.attributes.next_action?.redirect?.url) {
+        resource.additional({
+          redirect_url: attach.data.attributes.next_action?.redirect?.url,
+        })
+      }
 
       trx.commit()
 
