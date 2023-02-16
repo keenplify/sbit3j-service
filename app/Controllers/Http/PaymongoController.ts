@@ -12,17 +12,12 @@ export default class PaymongoWebhookController {
 
     switch (type) {
       case 'payment.paid': {
-        switch (attributes.status) {
-          case 'paid': {
-            if (attributes.metadata?.subscriptionId) {
-              const subscription = await Subscription.findOrFail(attributes.metadata.subscriptionId)
+        if (attributes.status === 'paid' && attributes.metadata?.subscriptionId) {
+          const subscription = await Subscription.findOrFail(attributes.metadata.subscriptionId)
 
-              subscription.payment = currency(attributes.amount).divide(10)
+          subscription.payment = currency(attributes.amount).divide(10)
 
-              await subscription.save()
-            }
-            break
-          }
+          await subscription.save()
         }
 
         break
