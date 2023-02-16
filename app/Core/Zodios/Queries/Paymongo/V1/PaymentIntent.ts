@@ -1,5 +1,6 @@
 import { makeApi } from '@zodios/core'
 import { ZodiosDefaultBasicAuthBase64Parameter } from 'App/Core/Zodios/Defaults/Parameters/BasicAuthBase64'
+import { PaymongoMetadataSchema } from 'App/Core/Zodios/Models/Paymongo/Metadata'
 import { PaymentIntentAttributesSchema } from 'App/Core/Zodios/Models/Paymongo/PaymentIntent'
 import { CaptureTypes } from 'App/Enums/CaptureTypes'
 import { Currencies } from 'App/Enums/Currencies'
@@ -30,7 +31,7 @@ export const PaymentIntentAPI = makeApi([
                 .optional(),
               currency: z.enum(Currencies),
               capture_type: z.enum(CaptureTypes),
-              metadata: z.any().optional(),
+              metadata: PaymongoMetadataSchema.optional(),
             }),
           }),
         }),

@@ -1,3 +1,4 @@
+import { PaymongoMetadataSchema } from 'App/Core/Zodios/Models/Paymongo/Metadata'
 import { CaptureTypes } from 'App/Enums/CaptureTypes'
 import { Currencies } from 'App/Enums/Currencies'
 import { PaymentIntentStatuses } from 'App/Enums/PaymentIntentStatus'
@@ -36,7 +37,7 @@ export const PaymentIntentAttributesSchema = z.object({
         .optional(),
     })
     .nullable(),
-  metadata: z.any(),
+  metadata: PaymongoMetadataSchema.optional(),
   setup_future_usage: z.any().nullable(),
   created_at: z.number(),
   updated_at: z.number(),
