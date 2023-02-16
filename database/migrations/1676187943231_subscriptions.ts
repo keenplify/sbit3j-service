@@ -7,8 +7,12 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.integer('client_id').unsigned().references('clients.id').onDelete('CASCADE')
-      table.integer('coach_id').unsigned().references('coaches.id').onDelete('CASCADE')
+      table
+        .integer('client_id')
+        .unsigned()
+        .references('clients.id')
+        .onDelete('CASCADE')
+        .notNullable()
 
       table.date('start_at').nullable()
       table.date('end_at').nullable()
