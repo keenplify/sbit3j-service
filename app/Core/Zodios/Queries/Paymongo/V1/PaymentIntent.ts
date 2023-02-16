@@ -45,7 +45,6 @@ export const PaymentIntentAPI = makeApi([
       }),
     }),
   },
-
   {
     method: 'post',
     path: '/v1/payment_intents/:id/attach',
@@ -66,6 +65,19 @@ export const PaymentIntentAPI = makeApi([
         }),
       },
     ],
+    response: z.object({
+      data: z.object({
+        id: z.string(),
+        type: z.string(),
+        attributes: PaymentIntentAttributesSchema,
+      }),
+    }),
+  },
+  {
+    method: 'get',
+    path: '/v1/payment_intents/:id',
+    alias: 'fetchPaymentIntent',
+    parameters: [ZodiosDefaultBasicAuthBase64Parameter],
     response: z.object({
       data: z.object({
         id: z.string(),

@@ -2,6 +2,7 @@ import Model from 'App/Core/Models/Model'
 import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 import Client from 'App/Models/Client'
+import currency from 'currency.js'
 
 export default class Subscription extends Model {
   @column.dateTime()
@@ -9,6 +10,20 @@ export default class Subscription extends Model {
 
   @column.dateTime()
   public endAt?: DateTime
+
+  @column.dateTime()
+  public paymentDate?: DateTime
+
+  @column()
+  public paymentReceived?: string
+
+  public get payment() {
+    return this.paymentReceived ? currency(this.paymentReceived) : undefined
+  }
+
+  public set payment(price) {
+    this.paymentReceived = price?.toString()
+  }
 
   @column()
   public clientId: number
