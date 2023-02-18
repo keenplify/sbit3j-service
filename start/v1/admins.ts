@@ -13,7 +13,7 @@ Route.group(() => {
     .as('auth')
 
   Route.group(() => {
-    Route.resource('subscription-products', 'SubscriptionProductsController')
+    Route.resource('admins', 'AdminsController')
       .apiOnly()
       .only(['index', 'show', 'store', 'update', 'destroy'])
   }).middleware('auth:admin')
