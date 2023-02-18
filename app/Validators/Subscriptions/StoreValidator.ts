@@ -2,9 +2,10 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class StoreValidator {
   public schema = schema.create({
-    name: schema.string({ trim: true }),
+    title: schema.string({ trim: true }),
     description: schema.string({ trim: true }),
     price: schema.number([rules.unsigned()]),
+    duration: schema.string(),
   })
 
   public messages = {

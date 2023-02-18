@@ -3,6 +3,10 @@ import SubscriptionProduct from 'App/Models/SubscriptionProduct'
 import { SubscriptionProductResource } from 'App/Resources/SubscriptionProductResource'
 import StoreValidator from 'App/Validators/Subscriptions/StoreValidator'
 import UpdateValidator from 'App/Validators/Subscriptions/UpdateValidator'
+import { Duration } from 'luxon'
+import humanInterval from 'human-interval'
+import currency from 'currency.js'
+import InvalidDurationException from 'App/Exceptions/InvalidDurationException'
 
 export default class SubscriptionProductsController {
   public async index({ response }: HttpContextContract) {
@@ -12,54 +16,59 @@ export default class SubscriptionProductsController {
 
     return response.resource(resource)
   }
-    
-    // Emman
-    // show
+
+  // Emman
+  // show
   public async show({ params, response }: HttpContextContract) {
     const subscriptionProduct = await SubscriptionProduct.findOrFail(params.id)
-  
+
     const resource = new SubscriptionProductResource(subscriptionProduct)
-  
+
     return response.resource(resource)
   }
 
-    // store
+  // store
   public async store({ request, response }: HttpContextContract) {
-    const data = request.only(['name', 'description', 'price'])
-  
-    await request.validate({
-      schema: new StoreValidator().schema,
-      messages: new StoreValidator().messages,
+    const data = await request.validate(StoreValidator)
+
+    const msInterval = humanInterval(data.duration)
+
+    if (!msInterval) throw new InvalidDurationException()
+
+    const subscriptionProduct = await SubscriptionProduct.create({
+      durationISO: Duration.fromMillis(msInterval).shiftTo('months', 'days', 'hours').toISO(),
+      priceString: currency(data.price).toString(),
+      title: data.title,
+      description: data.description,
     })
-  
-    const subscriptionProduct = await SubscriptionProduct.create(data)
-  
+
     const resource = new SubscriptionProductResource(subscriptionProduct)
-  
+
     return response.resource(resource)
   }
 
-    // update
+  // update
   public async update({ params, request, response }: HttpContextContract) {
+    // TODO - change name to title, support update durationISO and priceString update (refer to line 38-42)
     const subscriptionProduct = await SubscriptionProduct.findOrFail(params.id)
-  
+
     const data = request.only(['name', 'description', 'price'])
-  
+
     await request.validate({
       schema: new UpdateValidator().schema,
       messages: new UpdateValidator().messages,
     })
-  
+
     subscriptionProduct.merge(data)
-  
+
     await subscriptionProduct.save()
-  
+
     const resource = new SubscriptionProductResource(subscriptionProduct)
-  
+
     return response.resource(resource)
   }
 
-    // destroy
+  // destroy
   public async destroy({ params, response }: HttpContextContract) {
     const subscriptionProduct = await SubscriptionProduct.findOrFail(params.id)
 

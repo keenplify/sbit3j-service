@@ -12,6 +12,7 @@ export class SubscriptionProductResource extends BaseResource {
         symbol: '₱',
       }),
       duration: model.duration.toHuman(),
+      durationISO: model.duration.toISO(),
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
     }
