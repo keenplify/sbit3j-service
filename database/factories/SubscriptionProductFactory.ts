@@ -1,7 +1,7 @@
 import SubscriptionProduct from 'App/Models/SubscriptionProduct'
 import Factory from '@ioc:Adonis/Lucid/Factory'
 
-export default Factory.define(SubscriptionProduct, ({ faker }) => {
+export default Factory.define(SubscriptionProduct, ({}) => {
   return {
     //
   }
