@@ -1,7 +1,7 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class UpdateValidator {
+export default class StoreValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   /*
@@ -24,10 +24,15 @@ export default class UpdateValidator {
    *    ```
    */
   public schema = schema.create({
-    firstName: schema.string.optional(),
-    middleName: schema.string.optional(),
-    lastName: schema.string.optional(),
-    phone: schema.string.optional([rules.unique({ table: 'coaches', column: 'phone' })]),
+    firstName: schema.string({ trim: true }),
+    middleName: schema.string({ trim: true }),
+    lastName: schema.string({ trim: true }),
+    email: schema.string({ trim: true }, [
+      rules.email(),
+      rules.unique({ table: 'admins', column: 'email' }),
+    ]),
+    phone: schema.string({ trim: true }, [rules.unique({ table: 'admins', column: 'phone' })]),
+    password: schema.string({ trim: true }),
   })
 
   /**

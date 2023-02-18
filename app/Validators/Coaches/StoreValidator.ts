@@ -27,8 +27,11 @@ export default class StoreValidator {
     firstName: schema.string({ trim: true }),
     middleName: schema.string({ trim: true }),
     lastName: schema.string({ trim: true }),
-    email: schema.string({ trim: true }, [rules.email()]),
-    phone: schema.string({ trim: true }),
+    email: schema.string({ trim: true }, [
+      rules.email(),
+      rules.unique({ table: 'coaches', column: 'email' }),
+    ]),
+    phone: schema.string({ trim: true }, [rules.unique({ table: 'coaches', column: 'phone' })]),
     password: schema.string({ trim: true }),
   })
 

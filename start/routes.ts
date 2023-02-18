@@ -1,5 +1,3 @@
-import Route from '@ioc:Adonis/Core/Route'
-
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -22,5 +20,6 @@ import Route from '@ioc:Adonis/Core/Route'
 
 import './v1/coaches'
 import './v1/clients'
+import './v1/admins'
 import './v1/global'
 import './v1/paymongo'

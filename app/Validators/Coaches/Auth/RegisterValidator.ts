@@ -31,7 +31,7 @@ export default class RegisterValidator {
       rules.email(),
       rules.unique({ table: 'coaches', column: 'email' }),
     ]),
-    phone: schema.string({ trim: true }),
+    phone: schema.string({ trim: true }, [rules.unique({ table: 'coaches', column: 'phone' })]),
     password: schema.string({ trim: true }),
   })
 
