@@ -20,4 +20,8 @@ export default class Client extends Authenticatable {
 
   @hasMany(() => Subscription)
   public subscriptions: HasMany<typeof Subscription>
+
+  public async activeSubscription(): Promise<Subscription> {
+    throw 'TODO: Not yet implemented'
+  }
 }

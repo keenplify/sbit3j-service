@@ -1,6 +1,5 @@
 import { schema, rules, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { PaymentMethods } from 'App/Enums/PaymentMethods'
 
 export default class InitializeValidator {
   constructor(protected ctx: HttpContextContract) {}

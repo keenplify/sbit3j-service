@@ -10,4 +10,20 @@ export default class SubscriptionProductsController {
 
     return response.resource(resource)
   }
+
+  public async show({}: HttpContextContract) {
+    throw 'TODO: Not implemented'
+  }
+
+  public async store({}: HttpContextContract) {
+    throw 'TODO: Not implemented'
+  }
+
+  public async update({}: HttpContextContract) {
+    throw 'TODO: Not implemented'
+  }
+
+  public async destroy({}: HttpContextContract) {
+    throw 'TODO: Not implemented'
+  }
 }

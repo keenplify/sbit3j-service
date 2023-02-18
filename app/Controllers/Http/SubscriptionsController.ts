@@ -7,7 +7,12 @@ import { SubscriptionResource } from 'App/Resources/SubscriptionResource'
 import Env from '@ioc:Adonis/Core/Env'
 import { paymongo } from 'App/Services/PaymongoService'
 import Database from '@ioc:Adonis/Lucid/Database'
+import { PaymentMethods } from 'App/Enums/PaymentMethods'
 export default class SubscriptionsController {
+  public async current() {
+    throw 'TODO: Unimplemented'
+  }
+
   /**
    * Creates a subscription and returns a subscription together with the payment intent to be paid which has already attached payment method
    */
@@ -38,7 +43,7 @@ export default class SubscriptionsController {
             attributes: {
               amount: subscriptionProduct.price.multiply(10).value,
               currency: 'PHP',
-              payment_method_allowed: ['card', 'gcash', 'paymaya'],
+              payment_method_allowed: PaymentMethods,
               capture_type: 'automatic',
               metadata: {
                 clientId: `${client.id}`,

@@ -1,11 +1,11 @@
 export const PaymentMethods = [
-  'atome',
+  // 'atome',
   'card',
-  'dob',
+  // 'dob',
   'paymaya',
-  'billease',
+  // 'billease',
   'gcash',
-  'grab_pay',
+  // 'grab_pay',
 ] as const
 
 export type PaymentMethod = (typeof PaymentMethods)[number]
