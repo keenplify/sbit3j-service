@@ -81,11 +81,11 @@ export default class SubscriptionsController {
         })
       }
 
-      trx.commit()
+      await trx.commit()
 
       return response.resource(resource)
     } catch (error) {
-      trx.rollback()
+      await trx.rollback()
 
       throw error
     }
