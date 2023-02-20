@@ -16,6 +16,9 @@ Route.group(() => {
 
   Route.group(() => {
     Route.resource('coaches', 'CoachesController').apiOnly().only(['index', 'show'])
+    Route.resource('social-medias', 'SocialMediasController')
+      .apiOnly()
+      .only(['index', 'show', 'destroy', 'store', 'update'])
   }).middleware('auth:coach')
 })
   .prefix('v1/coach')

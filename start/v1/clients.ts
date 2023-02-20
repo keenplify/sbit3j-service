@@ -22,6 +22,10 @@ Route.group(() => {
     })
       .prefix('subscriptions')
       .as('subscriptions')
+
+    Route.resource('social-medias', 'SocialMediasController')
+      .apiOnly()
+      .only(['index', 'show', 'destroy', 'store', 'update'])
   }).middleware('auth:client')
 })
   .prefix('v1/client')

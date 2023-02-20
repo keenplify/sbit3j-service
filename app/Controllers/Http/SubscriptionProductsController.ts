@@ -42,7 +42,7 @@ export default class SubscriptionProductsController {
       description: data.description,
     })
 
-    const resource = new SubscriptionProductResource(subscriptionProduct)
+    const resource = SubscriptionProductResource.make(subscriptionProduct)
 
     return response.resource(resource)
   }

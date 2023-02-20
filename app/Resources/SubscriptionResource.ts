@@ -9,7 +9,7 @@ export class SubscriptionResource extends BaseResource {
       id: model.id,
       startAt: model.startAt,
       endAt: model.endAt,
-      client: ClientResource.make(model.client),
+      client: ClientResource.make(model.client) ?? undefined,
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
     }

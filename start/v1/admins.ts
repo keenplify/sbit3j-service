@@ -13,6 +13,9 @@ Route.group(() => {
     .as('auth')
 
   Route.group(() => {
+    Route.resource('coaches', 'CoachesController')
+      .apiOnly()
+      .only(['index', 'show', 'update', 'store'])
     Route.resource('admins', 'AdminsController')
       .apiOnly()
       .only(['index', 'show', 'store', 'update', 'destroy'])
