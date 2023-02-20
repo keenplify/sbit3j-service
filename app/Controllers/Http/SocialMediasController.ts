@@ -1,7 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
 import Coach from 'App/Models/Coach'
-import SocialMedia from 'App/Models/SocialMedia'
 import { SocialMediaResource } from 'App/Resources/SocialMediaResource'
 import SocialMediaStoreValidator from 'App/Validators/Global/SocialMedia/StoreValidator'
 import SocialMediaUpdateValidator from 'App/Validators/Global/SocialMedia/UpdateValidator'
