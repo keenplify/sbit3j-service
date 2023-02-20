@@ -32,6 +32,7 @@ export default class SubscriptionsController {
         clientId: client.id,
         startAt: DateTime.now(),
         endAt: DateTime.now().plus(subscriptionProduct.duration),
+        subscriptionProductId,
       })
 
       const paymentIntent = await paymongo.createPaymentIntent({

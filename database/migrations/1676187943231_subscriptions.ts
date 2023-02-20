@@ -14,6 +14,13 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
         .notNullable()
 
+      table
+        .integer('subscription_product_id')
+        .unsigned()
+        .references('subscription_products.id')
+        .onDelete('CASCADE')
+        .notNullable()
+
       table.date('start_at').nullable()
       table.date('end_at').nullable()
 

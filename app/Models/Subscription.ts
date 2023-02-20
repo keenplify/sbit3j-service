@@ -3,6 +3,7 @@ import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 import Client from 'App/Models/Client'
 import currency from 'currency.js'
+import SubscriptionProduct from 'App/Models/SubscriptionProduct'
 
 export default class Subscription extends Model {
   @column.dateTime()
@@ -30,4 +31,10 @@ export default class Subscription extends Model {
 
   @belongsTo(() => Client)
   public client: BelongsTo<typeof Client>
+
+  @column()
+  public subscriptionProductId: number
+
+  @belongsTo(() => SubscriptionProduct)
+  public subscriptionProduct: BelongsTo<typeof SubscriptionProduct>
 }

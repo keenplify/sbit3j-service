@@ -1,5 +1,6 @@
-import { column } from '@ioc:Adonis/Lucid/Orm'
+import { column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Model from 'App/Core/Models/Model'
+import Subscription from 'App/Models/Subscription'
 import currency from 'currency.js'
 import { Duration } from 'luxon'
 
@@ -31,4 +32,7 @@ export default class SubscriptionProduct extends Model {
   public set duration(duration) {
     this.durationISO = duration.toISO()
   }
+
+  @hasMany(() => Subscription)
+  public subscriptions: HasMany<typeof Subscription>
 }
