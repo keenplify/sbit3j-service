@@ -11,6 +11,12 @@ import { PaymentMethods } from 'App/Enums/PaymentMethods'
 export default class SubscriptionsController {
   public async current() {
     throw 'TODO: Unimplemented'
+
+    // TODO - get client at auth
+    // get active subscription by using await client.activeSubscription()
+    // create subscription resource with .make
+    // return resource
+    // Refer sa show ng social media
   }
 
   /**

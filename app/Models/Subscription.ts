@@ -37,4 +37,11 @@ export default class Subscription extends Model {
 
   @belongsTo(() => SubscriptionProduct)
   public subscriptionProduct: BelongsTo<typeof SubscriptionProduct>
+
+  public isActive() {
+    if (!this.startAt || !this.endAt) return false
+
+    const today = DateTime.now()
+    return this.startAt <= today && today <= this.endAt
+  }
 }

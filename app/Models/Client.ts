@@ -2,6 +2,7 @@ import Authenticatable from 'App/Core/Models/Authenticatable'
 import { column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Subscription from 'App/Models/Subscription'
 import SocialMedia from 'App/Models/SocialMedia'
+import { DateTime } from 'luxon'
 
 export default class Client extends Authenticatable {
   @column()
@@ -25,7 +26,14 @@ export default class Client extends Authenticatable {
   @hasMany(() => SocialMedia)
   public socialMedias: HasMany<typeof SocialMedia>
 
-  public async activeSubscription(): Promise<Subscription> {
-    throw 'TODO: Not yet implemented'
+  public async activeSubscription(): Promise<Subscription | null> {
+    const today = DateTime.now().toISO()
+    const subscription = await Subscription.query()
+      .where('client_id', this.id)
+      .where('start_at', '<=', today)
+      .where('end_at', '>=', today)
+      .first()
+
+    return subscription
   }
 }
