@@ -24,6 +24,7 @@ export default class Subscription extends Model {
 
   public set payment(price) {
     this.paymentReceived = price?.toString()
+    this.paymentDate = DateTime.now()
   }
 
   @column()
@@ -41,6 +42,7 @@ export default class Subscription extends Model {
   public isActive() {
     if (!this.startAt || !this.endAt) return false
     if (!this.paymentReceived) return false
+    if (!this.paymentDate) return false
 
     const today = DateTime.now()
     return this.startAt <= today && today <= this.endAt
