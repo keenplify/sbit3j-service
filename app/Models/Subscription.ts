@@ -40,6 +40,7 @@ export default class Subscription extends Model {
 
   public isActive() {
     if (!this.startAt || !this.endAt) return false
+    if (!this.paymentReceived) return false
 
     const today = DateTime.now()
     return this.startAt <= today && today <= this.endAt

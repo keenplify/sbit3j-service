@@ -29,6 +29,7 @@ export default class Client extends Authenticatable {
   public async activeSubscription(): Promise<Subscription | null> {
     const today = DateTime.now().toISO()
     const subscription = await Subscription.query()
+      .whereNotNull('payment_received')
       .where('client_id', this.id)
       .where('start_at', '<=', today)
       .where('end_at', '>=', today)
