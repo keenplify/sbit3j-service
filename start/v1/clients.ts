@@ -19,6 +19,7 @@ Route.group(() => {
 
     Route.group(() => {
       Route.post('initialize', 'SubscriptionsController.initialize').as('initialize')
+      Route.get('current', 'SubscriptionsController.current').as('current')
     })
       .prefix('subscriptions')
       .as('subscriptions')
