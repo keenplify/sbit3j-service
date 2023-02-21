@@ -9,8 +9,17 @@ import { paymongo } from 'App/Services/PaymongoService'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { PaymentMethods } from 'App/Enums/PaymentMethods'
 export default class SubscriptionsController {
-  public async current() {
-    throw 'TODO: Unimplemented'
+  public async current({ response, auth }: HttpContextContract) {
+    const user = auth.use('client').user!
+
+    const subscription = await user.activeSubscription()
+    if (subscription === null) {
+      return response.notFound()
+    }
+
+    const resource = SubscriptionResource.make(subscription)
+
+    return response.resource(resource)
 
     // TODO - get client at auth
     // get active subscription by using await client.activeSubscription()
@@ -18,7 +27,6 @@ export default class SubscriptionsController {
     // return resource
     // Refer sa show ng social media
   }
-
   /**
    * Creates a subscription and returns a subscription together with the payment intent to be paid which has already attached payment method
    */
