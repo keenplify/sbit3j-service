@@ -1,12 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import SubscriptionProduct from 'App/Models/SubscriptionProduct'
 import { SubscriptionProductResource } from 'App/Resources/SubscriptionProductResource'
-import StoreValidator from 'App/Validators/Subscriptions/StoreValidator'
-import UpdateValidator from 'App/Validators/Subscriptions/UpdateValidator'
+import UpdateValidator from 'App/Validators/SubscriptionProducts/UpdateValidator'
 import { Duration } from 'luxon'
 import humanInterval from 'human-interval'
 import currency from 'currency.js'
 import InvalidDurationException from 'App/Exceptions/InvalidDurationException'
+import StoreValidator from 'App/Validators/SubscriptionProducts/StoreValidator'
 
 export default class SubscriptionProductsController {
   public async index({ response }: HttpContextContract) {
@@ -52,14 +52,18 @@ export default class SubscriptionProductsController {
     // TODO - change name to title, support update durationISO and priceString update (refer to line 38-42)
     const subscriptionProduct = await SubscriptionProduct.findOrFail(params.id)
 
-    const data = request.only(['name', 'description', 'price'])
+    const data = await request.validate(UpdateValidator)
 
-    await request.validate({
-      schema: new UpdateValidator().schema,
-      messages: new UpdateValidator().messages,
+    const msInterval = humanInterval(data.duration)
+
+    if (!msInterval) throw new InvalidDurationException()
+
+    subscriptionProduct.merge({
+      title: data.title,
+      description: data.description,
+      durationISO: Duration.fromMillis(msInterval).shiftTo('months', 'days', 'hours').toISO(),
+      priceString: data.price ? currency(data.price).toString() : undefined,
     })
-
-    subscriptionProduct.merge(data)
 
     await subscriptionProduct.save()
 

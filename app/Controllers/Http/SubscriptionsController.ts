@@ -1,13 +1,14 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Subscription from 'App/Models/Subscription'
 import SubscriptionProduct from 'App/Models/SubscriptionProduct'
-import InitializeValidator from 'App/Validators/Subscriptions/InitializeValidator'
 import { DateTime } from 'luxon'
 import { SubscriptionResource } from 'App/Resources/SubscriptionResource'
 import Env from '@ioc:Adonis/Core/Env'
 import { paymongo } from 'App/Services/PaymongoService'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { PaymentMethods } from 'App/Enums/PaymentMethods'
+import ManualSubscribeValidator from 'App/Validators/Subscriptions/ManualSubscribeValidator'
+import InitializeValidator from 'App/Validators/Subscriptions/InitializeValidator'
 export default class SubscriptionsController {
   public async current({ response, auth }: HttpContextContract) {
     const user = auth.use('client').user!
@@ -27,6 +28,26 @@ export default class SubscriptionsController {
     // return resource
     // Refer sa show ng social media
   }
+
+  public async manualSubscribe({ request }: HttpContextContract) {
+    const { clientId, subscriptionProductId } = await request.validate(ManualSubscribeValidator)
+
+    const product = await SubscriptionProduct.findOrFail(subscriptionProductId)
+
+    const subscription = await Subscription.create({
+      clientId,
+      startAt: DateTime.now(),
+      endAt: DateTime.now().plus(product.duration),
+      paymentReceived: product.priceString,
+      subscriptionProductId: product.id,
+      paymentDate: DateTime.now(),
+    })
+
+    const resource = SubscriptionResource.make(subscription)
+
+    return resource
+  }
+
   /**
    * Creates a subscription and returns a subscription together with the payment intent to be paid which has already attached payment method
    */
