@@ -11,12 +11,14 @@ export default class extends BaseSchema {
       table.integer('client_id').unsigned().references('clients.id').onDelete('CASCADE').nullable()
       table.integer('admin_id').unsigned().references('admins.id').onDelete('CASCADE').nullable()
 
-      table.string('title').notNullable()
+      table.text('title').notNullable()
       table.string('description').notNullable()
       table.integer('reps').notNullable() // Recommended reps, set and time lang pwede baguhin ni coach
-      table.integer('set').notNullable()
+      table.integer('sets').notNullable()
       table.integer('time').nullable()
+      table.json('muscle_groups_json').nullable()
       table.string('image_url').nullable()
+      table.string('video_url').nullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
