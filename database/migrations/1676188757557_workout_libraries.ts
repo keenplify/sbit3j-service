@@ -18,7 +18,7 @@ export default class extends BaseSchema {
       table.integer('time').nullable()
       table.json('muscle_groups_json').nullable()
       table.string('image_url').nullable()
-      table.string('video_url').nullable()
+      table.string('youtube_url').nullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

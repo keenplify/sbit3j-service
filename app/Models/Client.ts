@@ -3,6 +3,7 @@ import { column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Subscription from 'App/Models/Subscription'
 import SocialMedia from 'App/Models/SocialMedia'
 import { DateTime } from 'luxon'
+import Session from 'App/Models/Session'
 
 export default class Client extends Authenticatable {
   @column()
@@ -25,6 +26,9 @@ export default class Client extends Authenticatable {
 
   @hasMany(() => SocialMedia)
   public socialMedias: HasMany<typeof SocialMedia>
+
+  @hasMany(() => Session)
+  public sessions: HasMany<typeof Session>
 
   public async activeSubscription(): Promise<Subscription | null> {
     const today = DateTime.now().toISO()

@@ -10,12 +10,13 @@ export default class extends BaseSchema {
       table.integer('session_id').unsigned().references('sessions.id').onDelete('CASCADE')
 
       table.string('title').notNullable()
-      table.string('description').notNullable()
-      table.integer('reps').notNullable()
-      table.integer('set').notNullable()
+      table.string('description').nullable()
+      table.integer('reps').nullable()
+      table.integer('sets').nullable()
       table.integer('time').nullable()
       table.string('image_url').nullable()
-      table.boolean('is_done').notNullable()
+      table.string('youtube_url').nullable()
+      table.boolean('is_done').notNullable().defaultTo(false)
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

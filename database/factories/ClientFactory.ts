@@ -7,7 +7,7 @@ export default Factory.define(Client, ({ faker }) => {
   const lastName = faker.name.lastName()
 
   return {
-    email: faker.internet.email(firstName, lastName),
+    email: faker.internet.email(firstName, lastName).toLowerCase(),
     firstName,
     middleName,
     lastName,

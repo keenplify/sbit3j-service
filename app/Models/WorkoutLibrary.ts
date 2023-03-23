@@ -17,6 +17,7 @@ export default class WorkoutLibrary extends Model {
   @column()
   public sets: number
 
+  /** In seconds */
   @column()
   public time: number
 
@@ -24,7 +25,7 @@ export default class WorkoutLibrary extends Model {
   public imageUrl?: string
 
   @column()
-  public videoUrl?: string
+  public youtubeUrl?: string
 
   @column()
   public muscleGroupsJson: string

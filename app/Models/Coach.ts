@@ -1,5 +1,6 @@
 import { column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Authenticatable from 'App/Core/Models/Authenticatable'
+import Session from 'App/Models/Session'
 import SocialMedia from 'App/Models/SocialMedia'
 
 export default class Coach extends Authenticatable {
@@ -20,4 +21,7 @@ export default class Coach extends Authenticatable {
 
   @hasMany(() => SocialMedia)
   public socialMedias: HasMany<typeof SocialMedia>
+
+  @hasMany(() => Session)
+  public sessions: HasMany<typeof Session>
 }

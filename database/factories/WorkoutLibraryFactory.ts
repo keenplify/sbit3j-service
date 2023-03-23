@@ -11,6 +11,6 @@ export default Factory.define(WorkoutLibrary, ({ faker }) => {
     sets: faker.datatype.number({ min: 3, max: 5 }),
     time: faker.datatype.number({ min: 60, max: 120 }),
     imageUrl: faker.image.sports(),
-    videoUrl: 'https://www.youtube.com/watch?v=0Z_osVD6rVI',
+    youtubeUrl: 'https://www.youtube.com/watch?v=0Z_osVD6rVI',
   }
 }).build()
