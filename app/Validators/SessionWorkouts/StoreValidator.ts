@@ -1,32 +1,23 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class SessionStoreValidator {
+export default class SessionWorkoutStoreValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    title: schema.string({ trim: true }),
-    description: schema.string.optional({ trim: true }),
-    clientId: schema.number([
+    sessionId: schema.number([
       rules.exists({
         column: 'id',
-        table: 'clients',
+        table: 'sessions',
       }),
     ]),
-    calories: schema.number.optional(),
-    proteins: schema.number.optional(),
-    fats: schema.number.optional(),
-    workouts: schema.array.optional().members(
-      schema.object().members({
-        title: schema.string(),
-        description: schema.string.optional(),
-        reps: schema.number.optional(),
-        sets: schema.number.optional(),
-        time: schema.number.optional(),
-        imageUrl: schema.string.optional(),
-        youtubeUrl: schema.string.optional(),
-      })
-    ),
+    title: schema.string(),
+    description: schema.string.optional(),
+    reps: schema.number.optional(),
+    sets: schema.number.optional(),
+    time: schema.number.optional(),
+    imageUrl: schema.string.optional(),
+    youtubeUrl: schema.string.optional(),
   })
 
   /**
