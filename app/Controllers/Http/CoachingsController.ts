@@ -2,7 +2,6 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Coaching from 'App/Models/Coaching'
 import { CoachingResource } from 'App/Resources/CoachingResource'
 import StoreValidator from 'App/Validators/Coachings/StoreValidator'
-import UpdateValidator from 'App/Validators/Coachings/UpdateValidator'
 
 export default class CoachingsController {
   public async index({ response }: HttpContextContract) {
@@ -27,22 +26,6 @@ export default class CoachingsController {
     const values = await request.validate(StoreValidator)
 
     const coaching = await Coaching.create(values)
-
-    const resource = CoachingResource.make(coaching)
-
-    return response.resource(resource)
-  }
-
-  public async update({ request, params, response }: HttpContextContract) {
-    const { id } = params
-
-    const values = await request.validate(UpdateValidator)
-
-    const coaching = await Coaching.findOrFail(id)
-
-    coaching.merge(values)
-
-    await coaching.save()
 
     const resource = CoachingResource.make(coaching)
 
