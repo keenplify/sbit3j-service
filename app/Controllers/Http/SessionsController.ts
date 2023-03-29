@@ -77,6 +77,8 @@ export default class SessionsController {
 
     await session.save()
 
+    await session.load('workouts')
+
     const resource = SessionResource.make(session)
 
     return response.resource(resource)
