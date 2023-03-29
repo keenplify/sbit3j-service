@@ -22,7 +22,7 @@ Route.group(() => {
     Route.resource('subscription-products', 'SubscriptionProductsController')
       .apiOnly()
       .only(['index', 'show', 'store', 'update', 'destroy'])
-    Route.resource('sessions', 'CoachingsController')
+    Route.resource('coachings', 'CoachingsController')
       .apiOnly()
       .only(['index', 'show', 'destroy', 'store'])
   }).middleware('auth:admin')
