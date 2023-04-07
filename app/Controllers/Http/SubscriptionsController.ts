@@ -15,9 +15,26 @@ export default class SubscriptionsController {
 
     const subscriptions = await Subscription.query()
       .where('clientId', user.id)
+      .orderBy('start_at', 'desc')
+      .orderBy('end_at', 'desc')
+      .orderBy('payment_date', 'desc')
+      .orderBy('created_at', 'desc')
       .preload('subscriptionProduct')
 
-    subscriptions[0].subscriptionProduct
+    // subscriptions.sort((a, b) => {
+    //   const aIsActive = a.isActive()
+    //   const bIsActive = b.isActive()
+    //   if (aIsActive === bIsActive) {
+    //     // If both subscriptions are active or inactive, sort by created_at descending
+    //     return b.createdAt.toJSDate() - a.createdAt.toJSDate()
+    //   } else if (aIsActive) {
+    //     // If subscription a is active and subscription b is inactive, sort a first
+    //     return -1
+    //   } else {
+    //     // If subscription b is active and subscription a is inactive, sort b first
+    //     return 1
+    //   }
+    // })
 
     const resource = SubscriptionResource.collection(subscriptions)
 
