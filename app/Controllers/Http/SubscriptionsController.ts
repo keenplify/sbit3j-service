@@ -17,6 +17,8 @@ export default class SubscriptionsController {
       .where('clientId', user.id)
       .preload('subscriptionProduct')
 
+    subscriptions[0].subscriptionProduct
+
     const resource = SubscriptionResource.collection(subscriptions)
 
     return response.resource(resource)
