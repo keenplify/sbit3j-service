@@ -2,6 +2,7 @@ import { ModelObject } from '@ioc:Adonis/Lucid/Orm'
 import { BaseResource } from 'App/Core/Resources/BaseResource'
 import Subscription from 'App/Models/Subscription'
 import { ClientResource } from 'App/Resources/ClientResource'
+import { SubscriptionProductResource } from 'App/Resources/SubscriptionProductResource'
 
 export class SubscriptionResource extends BaseResource {
   public toObject(model: Subscription): ModelObject {
@@ -13,6 +14,10 @@ export class SubscriptionResource extends BaseResource {
       endAt: model.endAt,
       clientId: model.clientId,
       client: model.client ? ClientResource.make(model.client) : undefined,
+      subscriptionProductId: model.subscriptionProductId,
+      subscriptionProduct: model.subscriptionProduct
+        ? SubscriptionProductResource.make(model.subscriptionProduct)
+        : undefined,
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
     }

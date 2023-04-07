@@ -13,7 +13,9 @@ export default class SubscriptionsController {
   public async index({ response, auth }: HttpContextContract) {
     const user = auth.user!
 
-    const subscriptions = await Subscription.query().where('clientId', user.id)
+    const subscriptions = await Subscription.query()
+      .where('clientId', user.id)
+      .preload('subscriptionProduct')
 
     const resource = SubscriptionResource.collection(subscriptions)
 
