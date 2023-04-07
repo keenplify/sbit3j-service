@@ -31,12 +31,12 @@ export default class Client extends Authenticatable {
   public sessions: HasMany<typeof Session>
 
   public async activeSubscription(): Promise<Subscription | null> {
-    const today = DateTime.now().toISO()
+    const today = DateTime.now()
     const subscription = await Subscription.query()
       .whereNotNull('payment_received')
       .where('client_id', this.id)
-      .where('start_at', '<=', today)
-      .where('end_at', '>=', today)
+      .where('start_at', '<=', today.startOf('day').toISO())
+      .where('end_at', '>=', today.endOf('day').toISO())
       .first()
 
     return subscription

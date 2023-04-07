@@ -24,6 +24,8 @@ Route.group(() => {
       .prefix('subscriptions')
       .as('subscriptions')
 
+    Route.resource('subscriptions', 'SubscriptionsController').apiOnly().only(['index'])
+
     Route.resource('social-medias', 'SocialMediasController')
       .apiOnly()
       .only(['index', 'show', 'destroy', 'store', 'update'])

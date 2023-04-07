@@ -10,10 +10,23 @@ import { PaymentMethods } from 'App/Enums/PaymentMethods'
 import ManualSubscribeValidator from 'App/Validators/Subscriptions/ManualSubscribeValidator'
 import InitializeValidator from 'App/Validators/Subscriptions/InitializeValidator'
 export default class SubscriptionsController {
+  public async index({ response, auth }: HttpContextContract) {
+    const user = auth.user!
+
+    const subscriptions = await Subscription.query().where('clientId', user.id)
+
+    const resource = SubscriptionResource.collection(subscriptions)
+
+    return response.resource(resource)
+  }
+
   public async current({ response, auth }: HttpContextContract) {
     const user = auth.use('client').user!
 
     const subscription = await user.activeSubscription()
+
+    console.log({ subscription })
+
     if (subscription === null) {
       return response.notFound()
     }
@@ -21,12 +34,6 @@ export default class SubscriptionsController {
     const resource = SubscriptionResource.make(subscription)
 
     return response.resource(resource)
-
-    // TODO - get client at auth
-    // get active subscription by using await client.activeSubscription()
-    // create subscription resource with .make
-    // return resource
-    // Refer sa show ng social media
   }
 
   public async manualSubscribe({ request }: HttpContextContract) {
