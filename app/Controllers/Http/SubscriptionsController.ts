@@ -15,7 +15,6 @@ export default class SubscriptionsController {
 
     const subscriptions = await Subscription.query()
       .where('clientId', user.id)
-      .orderBy('created_at', 'desc')
       .orderBy('payment_date', 'desc')
       .preload('subscriptionProduct')
 
