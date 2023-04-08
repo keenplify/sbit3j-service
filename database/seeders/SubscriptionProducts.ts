@@ -11,7 +11,12 @@ export default class extends BaseSeeder {
       },
       {
         title: 'Basic',
-        priceString: currency(1000).toString(),
+        descriptionJSON: JSON.stringify([
+          'Lorem ipsum dolor amet',
+          'Lorem ipsum dolor amet',
+          'Lorem ipsum dolor amet',
+        ]),
+        priceString: currency(999).toString(),
         durationISO: Duration.fromObject({
           months: 1,
         }).toISO(),
@@ -20,11 +25,17 @@ export default class extends BaseSeeder {
 
     await SubscriptionProduct.updateOrCreate(
       {
-        title: 'Standard',
+        title: 'Plus',
       },
       {
-        title: 'Standard',
-        priceString: currency(1500).toString(),
+        title: 'Plus',
+        priceString: currency(5499).toString(),
+        descriptionJSON: JSON.stringify([
+          'Lorem ipsum dolor amet',
+          'Lorem ipsum dolor amet',
+          'Lorem ipsum dolor amet',
+          'Lorem ipsum dolor amet',
+        ]),
         durationISO: Duration.fromObject({
           months: 6,
         }).toISO(),
@@ -33,11 +44,18 @@ export default class extends BaseSeeder {
 
     await SubscriptionProduct.updateOrCreate(
       {
-        title: 'Premium',
+        title: 'Gold',
       },
       {
-        title: 'Premium',
-        priceString: currency(1500).toString(),
+        title: 'Gold',
+        priceString: currency(9999).toString(),
+        descriptionJSON: JSON.stringify([
+          'Lorem ipsum dolor amet',
+          'Lorem ipsum dolor amet',
+          'Lorem ipsum dolor amet',
+          'Lorem ipsum dolor amet',
+          'Lorem ipsum dolor amet',
+        ]),
         durationISO: Duration.fromObject({
           year: 1,
         }).toISO(),
