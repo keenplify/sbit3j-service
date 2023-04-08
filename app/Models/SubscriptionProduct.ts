@@ -11,11 +11,12 @@ export default class SubscriptionProduct extends Model {
   @column()
   public descriptionJSON: string
 
-  public get description(): string[] {
+  public get description(): string[] | undefined {
+    if (!this.descriptionJSON) return
     return JSON.parse(this.descriptionJSON)
   }
 
-  public set description(values: string[]) {
+  public set description(values: string[] | undefined) {
     this.descriptionJSON = JSON.stringify(values)
   }
 
