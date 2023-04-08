@@ -62,7 +62,6 @@ export default class PaymongoWebhookController {
       return response.redirect(final_url)
     }
 
-    return response.json(paymentIntent)
-    // TODO - Redirect back to app
+    return response.redirect('https://sbit3j-payment-462roi98o-keenplify.vercel.app/subscription')
   }
 }
