@@ -50,7 +50,7 @@ export default class PaymongoWebhookController {
             paymentIntent.data.attributes.metadata.subscriptionId
           )
 
-          subscription.payment = currency(paymentIntent.data.attributes.amount).divide(10)
+          subscription.payment = currency(paymentIntent.data.attributes.amount).divide(100)
 
           await subscription.save()
         }

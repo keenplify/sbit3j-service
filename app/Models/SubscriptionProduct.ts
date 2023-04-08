@@ -9,15 +9,15 @@ export default class SubscriptionProduct extends Model {
   public title: string
 
   @column()
-  public descriptionJSON: string
+  public descriptionJSON: string | null
 
-  public get description(): string[] | undefined {
-    if (!this.descriptionJSON) return
+  public get description(): string[] | null {
+    if (!this.descriptionJSON) return null
     return JSON.parse(this.descriptionJSON)
   }
 
-  public set description(values: string[] | undefined) {
-    this.descriptionJSON = JSON.stringify(values)
+  public set description(values: string[] | null) {
+    this.descriptionJSON = values ? JSON.stringify(values) : null
   }
 
   @column()
