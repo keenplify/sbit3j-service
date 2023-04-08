@@ -10,9 +10,9 @@ import StoreValidator from 'App/Validators/SubscriptionProducts/StoreValidator'
 
 export default class SubscriptionProductsController {
   public async index({ response }: HttpContextContract) {
-    const coaches = await SubscriptionProduct.query()
+    const products = await SubscriptionProduct.query()
 
-    const resource = SubscriptionProductResource.collection(coaches)
+    const resource = SubscriptionProductResource.collection(products)
 
     return response.resource(resource)
   }

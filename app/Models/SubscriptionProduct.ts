@@ -8,7 +8,9 @@ export default class SubscriptionProduct extends Model {
   @column()
   public title: string
 
-  @column()
+  @column({
+    columnName: 'description_JSON',
+  })
   public descriptionJSON: string | null
 
   public get description(): string[] | null {
