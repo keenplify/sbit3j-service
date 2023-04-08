@@ -105,7 +105,7 @@ export default class SubscriptionsController {
         body: {
           data: {
             attributes: {
-              amount: subscriptionProduct.price.multiply(10).value,
+              amount: subscriptionProduct.price.multiply(100).value,
               currency: 'PHP',
               payment_method_allowed: PaymentMethods,
               capture_type: 'automatic',
