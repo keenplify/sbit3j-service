@@ -62,6 +62,6 @@ export default class PaymongoWebhookController {
       return response.redirect(final_url)
     }
 
-    return response.redirect('https://sbit3j-payment-462roi98o-keenplify.vercel.app/subscription')
+    return response.redirect('http://thegymstreet-payments.vercel.app/subscription')
   }
 }

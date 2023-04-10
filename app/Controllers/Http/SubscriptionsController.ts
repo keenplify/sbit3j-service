@@ -43,8 +43,6 @@ export default class SubscriptionsController {
 
     const subscription = await user.activeSubscription()
 
-    console.log({ subscription })
-
     if (subscription === null) {
       return response.notFound()
     }
