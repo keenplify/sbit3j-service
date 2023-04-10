@@ -29,6 +29,7 @@ export default class WorkoutLibrary extends Model {
 
   @column()
   public muscleGroupsJson: string
+  name: any
 
   public set muscleGroups(groups: string[]) {
     const data = MuscleGroupSchema.parse(groups)
