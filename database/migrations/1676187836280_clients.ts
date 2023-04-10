@@ -12,6 +12,18 @@ export default class extends BaseSchema {
       table.string('email').notNullable().unique()
       table.string('phone').notNullable().unique()
       table.string('password').notNullable()
+      table.string('gender').notNullable()
+      table.boolean('requires_coaching').nullable()
+
+      table.integer('age').nullable()
+      table.float('weight').nullable()
+      table.float('height').nullable()
+      table.string('workout_level').nullable()
+      table.string('workout_preference').nullable()
+      table.string('availability').nullable()
+      table.string('coach_gender_preference').nullable()
+      table.string('goal').nullable()
+      table.string('notes').nullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

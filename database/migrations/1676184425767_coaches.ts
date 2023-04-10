@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.string('email').notNullable()
       table.string('phone').notNullable()
       table.string('password').notNullable()
+      table.string('gender').notNullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

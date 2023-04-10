@@ -10,6 +10,7 @@ export class CoachResource extends BaseResource {
       firstName: model.firstName,
       middleName: model.middleName,
       lastName: model.lastName,
+      gender: model.gender,
       email: model.email,
       phone: model.phone,
       socialMedias: model.socialMedias

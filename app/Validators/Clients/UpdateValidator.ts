@@ -1,5 +1,8 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { WorkoutLevels } from 'App/Enums/WorkoutLevels'
+import { WorkoutPreferences } from 'App/Enums/WorkoutPreferences'
+import { Genders } from 'App/Enums/GenderEnum'
 
 export default class UpdateValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -28,6 +31,15 @@ export default class UpdateValidator {
     middleName: schema.string.optional(),
     lastName: schema.string.optional(),
     phone: schema.string.optional([rules.unique({ table: 'clients', column: 'phone' })]),
+    age: schema.number.optional(),
+    weight: schema.number.optional(),
+    height: schema.number.optional(),
+    workoutLevel: schema.enum.optional(WorkoutLevels),
+    workoutPreference: schema.enum.optional(WorkoutPreferences),
+    availability: schema.string.optional(),
+    coachGenderPreference: schema.enum(Genders),
+    goal: schema.string.optional(),
+    notes: schema.string.optional(),
   })
 
   /**

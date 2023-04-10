@@ -1,5 +1,6 @@
 import { column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Authenticatable from 'App/Core/Models/Authenticatable'
+import { Gender } from 'App/Enums/GenderEnum'
 import Session from 'App/Models/Session'
 import SocialMedia from 'App/Models/SocialMedia'
 
@@ -12,6 +13,9 @@ export default class Coach extends Authenticatable {
 
   @column()
   public lastName: string
+
+  @column()
+  public gender: Gender
 
   @column()
   public email: string

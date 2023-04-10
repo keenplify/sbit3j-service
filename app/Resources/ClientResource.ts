@@ -13,6 +13,15 @@ export class ClientResource extends BaseResource {
       lastName: model.lastName,
       email: model.email,
       phone: model.phone,
+      gender: model.gender,
+      requiresCoaching: model.requiresCoaching,
+      age: model.age,
+      weight: model.weight,
+      height: model.height,
+      workoutLevel: model.workoutLevel,
+      workoutPreference: model.workoutPreference,
+      availability: model.availability,
+      coachGenderPreference: model.coachGenderPreference,
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
       subscriptions: model.subscriptions
@@ -24,3 +33,32 @@ export class ClientResource extends BaseResource {
     }
   }
 }
+
+/**
+ *  @column()
+  public age: number | null
+
+  @column()
+  public weight?: number | null
+
+  @column()
+  public height?: number | null
+
+  @column()
+  public workoutLevel?: WorkoutLevel | null
+
+  @column()
+  public workoutPreference?: WorkoutPreference | null
+
+  @column()
+  public availability?: string | null
+
+  @column()
+  public coachGenderPreference?: Gender | null
+
+  @column()
+  public goal?: string
+
+  @column()
+  public notes?: string
+ */

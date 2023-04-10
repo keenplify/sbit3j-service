@@ -1,7 +1,7 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
-export const workoutLibrarySchema = schema.create({
-  name: schema.string({ trim: true }, [
+export const WorkoutLibraryUpdateSchema = schema.create({
+  name: schema.string.optional({ trim: true }, [
     rules.maxLength(255),
     rules.unique({ table: 'workout_libraries', column: 'name' }),
   ]),
