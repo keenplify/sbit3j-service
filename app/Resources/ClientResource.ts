@@ -33,32 +33,3 @@ export class ClientResource extends BaseResource {
     }
   }
 }
-
-/**
- *  @column()
-  public age: number | null
-
-  @column()
-  public weight?: number | null
-
-  @column()
-  public height?: number | null
-
-  @column()
-  public workoutLevel?: WorkoutLevel | null
-
-  @column()
-  public workoutPreference?: WorkoutPreference | null
-
-  @column()
-  public availability?: string | null
-
-  @column()
-  public coachGenderPreference?: Gender | null
-
-  @column()
-  public goal?: string
-
-  @column()
-  public notes?: string
- */

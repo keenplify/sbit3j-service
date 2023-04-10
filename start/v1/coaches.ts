@@ -15,7 +15,12 @@ Route.group(() => {
     .as('auth')
 
   Route.group(() => {
-    Route.resource('coaches', 'CoachesController').apiOnly().only(['index', 'show'])
+    Route.resource('coaches', 'CoachesController').apiOnly().only(['index', 'show', 'update'])
+    Route.resource('coachings', 'CoachingsController').apiOnly().only(['index', 'show'])
+
+    Route.resource('workout-libraries', 'WorkoutLibrariesController')
+      .apiOnly()
+      .only(['index', 'show'])
     Route.resource('social-medias', 'SocialMediasController')
       .apiOnly()
       .only(['index', 'show', 'destroy', 'store', 'update'])

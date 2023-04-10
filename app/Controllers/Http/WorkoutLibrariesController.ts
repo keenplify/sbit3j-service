@@ -41,7 +41,7 @@ export default class WorkoutLibrariesController {
 
     // Create a new workout library from the validated request body
     const library = new WorkoutLibrary()
-    library.name = payload.name
+    library.title = payload.title
     library.description = payload.description
     await library.save()
 

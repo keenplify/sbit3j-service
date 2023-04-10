@@ -7,6 +7,7 @@ import Session from 'App/Models/Session'
 import { WorkoutLevel } from 'App/Enums/WorkoutLevels'
 import { WorkoutPreference } from 'App/Enums/WorkoutPreferences'
 import { Gender } from 'App/Enums/GenderEnum'
+import Coaching from 'App/Models/Coaching'
 
 export default class Client extends Authenticatable {
   @column()
@@ -65,6 +66,9 @@ export default class Client extends Authenticatable {
 
   @hasMany(() => Session)
   public sessions: HasMany<typeof Session>
+
+  @hasMany(() => Coaching)
+  public coachings: HasMany<typeof Coaching>
 
   public async activeSubscription(): Promise<Subscription | null> {
     const today = DateTime.now()

@@ -13,6 +13,12 @@ Route.group(() => {
     .as('auth')
 
   Route.group(() => {
+    Route.resource('coachings', 'CoachingsController')
+      .apiOnly()
+      .only(['index', 'show', 'store', 'destroy'])
+    Route.resource('workout-libraries', 'WorkoutLibrariesController')
+      .apiOnly()
+      .only(['index', 'show', 'store', 'update', 'destroy'])
     Route.resource('coaches', 'CoachesController')
       .apiOnly()
       .only(['index', 'show', 'update', 'store'])

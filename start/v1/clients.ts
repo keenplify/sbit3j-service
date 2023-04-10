@@ -15,7 +15,12 @@ Route.group(() => {
     .as('auth')
 
   Route.group(() => {
-    Route.resource('clients', 'ClientsController').apiOnly().only(['index', 'show'])
+    Route.resource('clients', 'ClientsController').apiOnly().only(['index', 'show', 'update'])
+    Route.resource('coachings', 'CoachingsController').apiOnly().only(['index'])
+
+    Route.resource('workout-libraries', 'WorkoutLibrariesController')
+      .apiOnly()
+      .only(['index', 'show'])
 
     Route.group(() => {
       Route.post('initialize', 'SubscriptionsController.initialize').as('initialize')

@@ -1,13 +1,25 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Client from 'App/Models/Client'
+import Coach from 'App/Models/Coach'
 import Coaching from 'App/Models/Coaching'
 import { CoachingResource } from 'App/Resources/CoachingResource'
 import StoreValidator from 'App/Validators/Coachings/StoreValidator'
 
 export default class CoachingsController {
-  public async index({ response }: HttpContextContract) {
-    const coaching = await Coaching.query()
+  public async index({ response, auth }: HttpContextContract) {
+    const user = auth.user! as Client | Coach
 
-    const resource = CoachingResource.collection(coaching)
+    const coachingQuery = Coaching.query()
+
+    if (user instanceof Client) {
+      coachingQuery.where('client_id', user.id)
+    }
+
+    if (user instanceof Coach) {
+      coachingQuery.where('coach_id', user.id)
+    }
+
+    const resource = CoachingResource.collection(await coachingQuery)
 
     return response.resource(resource)
   }
