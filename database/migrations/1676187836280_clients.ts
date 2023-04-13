@@ -20,10 +20,10 @@ export default class extends BaseSchema {
       table.float('height').nullable()
       table.string('workout_level').nullable()
       table.string('workout_preference').nullable()
-      table.string('availability').nullable()
+      table.string('availability', 512).nullable()
       table.string('coach_gender_preference').nullable()
-      table.string('goal').nullable()
-      table.string('notes').nullable()
+      table.string('goal', 512).nullable()
+      table.string('notes', 512).nullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

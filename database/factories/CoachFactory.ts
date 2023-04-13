@@ -1,4 +1,5 @@
 import Factory from '@ioc:Adonis/Lucid/Factory'
+import { Genders } from 'App/Enums/GenderEnum'
 import Coach from 'App/Models/Coach'
 
 export default Factory.define(Coach, ({ faker }) => {
@@ -13,5 +14,6 @@ export default Factory.define(Coach, ({ faker }) => {
     lastName,
     password: 'password',
     phone: faker.phone.number('+63906#######'),
+    gender: faker.helpers.arrayElement(Genders),
   }
 }).build()
