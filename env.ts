@@ -36,4 +36,6 @@ export default Env.rules({
   PAYMONGO_PUBLIC_KEY: Env.schema.string(),
   PAYMONGO_SECRET_KEY: Env.schema.string(),
   SERVER_URL: Env.schema.string(),
+  EXCERCISE_DB_RAPID_API_KEY: Env.schema.string(),
+  EXCERCISE_DB_RAPID_API_HOST: Env.schema.string(),
 })

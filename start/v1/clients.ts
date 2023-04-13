@@ -17,7 +17,7 @@ Route.group(() => {
   Route.group(() => {
     Route.resource('clients', 'ClientsController').apiOnly().only(['index', 'show', 'update'])
     Route.resource('coachings', 'CoachingsController').apiOnly().only(['index'])
-
+    Route.resource('sessions', 'SessionsController').apiOnly().only(['index', 'show'])
     Route.resource('workout-libraries', 'WorkoutLibrariesController')
       .apiOnly()
       .only(['index', 'show'])
@@ -34,7 +34,6 @@ Route.group(() => {
     Route.resource('social-medias', 'SocialMediasController')
       .apiOnly()
       .only(['index', 'show', 'destroy', 'store', 'update'])
-    Route.resource('sessions', 'SessionsController').apiOnly().only(['index', 'show'])
   }).middleware('auth:client')
 })
   .prefix('v1/client')

@@ -1,6 +1,6 @@
 import Model from 'App/Core/Models/Model'
 import { column } from '@ioc:Adonis/Lucid/Orm'
-import { MuscleGroups } from 'App/Enums/MuscleGroups'
+import { MuscleGroup, MuscleGroups } from 'App/Enums/MuscleGroups'
 import { z } from 'zod'
 
 const MuscleGroupSchema = z.array(z.enum(MuscleGroups))
@@ -30,7 +30,10 @@ export default class WorkoutLibrary extends Model {
   @column()
   public muscleGroupsJson: string
 
-  public set muscleGroups(groups: string[]) {
+  @column()
+  public exerciseDbScrapeId?: string
+
+  public set muscleGroups(groups: MuscleGroup[]) {
     const data = MuscleGroupSchema.parse(groups)
     this.muscleGroupsJson = JSON.stringify(data)
   }

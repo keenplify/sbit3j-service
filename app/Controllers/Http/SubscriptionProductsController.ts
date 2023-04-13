@@ -49,7 +49,6 @@ export default class SubscriptionProductsController {
 
   // update
   public async update({ params, request, response }: HttpContextContract) {
-    // TODO - change name to title, support update durationISO and priceString update (refer to line 38-42)
     const subscriptionProduct = await SubscriptionProduct.findOrFail(params.id)
 
     const data = await request.validate(UpdateValidator)

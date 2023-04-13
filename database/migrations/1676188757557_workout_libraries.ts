@@ -20,6 +20,8 @@ export default class extends BaseSchema {
       table.string('image_url').nullable()
       table.string('youtube_url').nullable()
 
+      table.string('exercise_db_scrape_id').nullable()
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
