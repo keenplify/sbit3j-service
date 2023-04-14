@@ -67,14 +67,22 @@
     "@zodios/fetch": "^11.0.0-beta.15",
     "currency.js": "^2.0.4",
     "human-interval": "^2.0.1",
+    "i": "^0.3.7",
     "luxon": "^3.2.1",
     "mysql2": "^3.1.2",
     "node-fetch": "^2.6.9",
+    "npm": "^9.6.4",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.21",
     "sqlite3": "^5.1.4",
     "ulid": "^2.3.0",
     "zod": "^3.20.6"
+  },
+  "overrides": {
+    "@adonisjs/drive-s3": {
+      "@aws-sdk/client-s3": "3.190.0",
+      "@aws-sdk/lib-storage": "3.190.0"
+    }
   }
 }
