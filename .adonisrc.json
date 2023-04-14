@@ -23,7 +23,8 @@
     "@adonisjs/lucid",
     "@adonisjs/auth",
     "@adonisjs/redis",
-    "./providers/PaymongoWebhookProvider"
+    "./providers/PaymongoWebhookProvider",
+    "@adonisjs/drive-s3"
   ],
   "aceProviders": [
     "@adonisjs/repl"
