@@ -26,6 +26,21 @@ export default class Client extends Authenticatable {
   public phone: string
 
   @column()
+  public line1: string
+
+  @column()
+  public line2: string
+
+  @column()
+  public city: string
+
+  @column()
+  public state: string
+
+  @column()
+  public postalCode: string
+
+  @column()
   public gender: Gender
 
   @column()

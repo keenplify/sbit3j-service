@@ -40,6 +40,11 @@ export default class UpdateValidator {
     coachGenderPreference: schema.enum(Genders),
     goal: schema.string.optional(),
     notes: schema.string.optional(),
+    line1: schema.string.optional({ trim: true }),
+    line2: schema.string.optional({ trim: true }),
+    city: schema.string.optional({ trim: true }),
+    state: schema.string.optional({ trim: true }),
+    postalCode: schema.string.optional({ trim: true }),
   })
 
   /**

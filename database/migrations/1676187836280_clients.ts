@@ -15,6 +15,12 @@ export default class extends BaseSchema {
       table.string('gender').notNullable()
       table.boolean('requires_coaching').nullable()
 
+      table.string('line1').notNullable()
+      table.string('line2').notNullable()
+      table.string('city').notNullable()
+      table.string('state').notNullable()
+      table.string('postal_code').notNullable()
+
       table.integer('age').nullable()
       table.float('weight').nullable()
       table.float('height').nullable()

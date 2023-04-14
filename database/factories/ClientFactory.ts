@@ -27,5 +27,10 @@ export default Factory.define(Client, ({ faker }) => {
     coachGenderPreference: faker.helpers.arrayElement(Genders),
     goal: faker.lorem.lines(),
     notes: faker.lorem.lines(),
+    line1: faker.address.streetAddress(),
+    line2: faker.address.streetName(),
+    city: faker.address.city(),
+    state: faker.address.state(),
+    postalCode: faker.address.zipCode(),
   }
 }).build()
