@@ -1,3 +1,4 @@
+import { Exception } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
 import { ClientResource } from 'App/Resources/ClientResource'
@@ -33,8 +34,13 @@ export default class ClientsController {
     return response.resource(resource)
   }
 
-  public async update({ request, params, response }: HttpContextContract) {
+  public async update({ request, params, response, auth }: HttpContextContract) {
+    const user = auth.user!
+
     const { id } = params
+
+    if (user instanceof Client && user.id !== id)
+      throw new Exception('Blocked - you have no access to this endpoint', 401)
 
     const values = await request.validate(UpdateValidator)
 
