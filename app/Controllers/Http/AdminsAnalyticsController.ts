@@ -14,8 +14,6 @@ export default class AdminsAalyticsController {
       .orderBy('month')
       .withScopes((scopes) => scopes.currentYear())
 
-    console.log(subscriptions)
-
     const labels = [
       'January',
       'February',
