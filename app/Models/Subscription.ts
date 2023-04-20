@@ -1,11 +1,16 @@
 import Model from 'App/Core/Models/Model'
-import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BelongsTo, belongsTo, column, scope } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 import Client from 'App/Models/Client'
 import currency from 'currency.js'
 import SubscriptionProduct from 'App/Models/SubscriptionProduct'
 
 export default class Subscription extends Model {
+  public static currentYear = scope((query) => {
+    const currentYear = new Date().getFullYear()
+    query.whereRaw(`YEAR(created_at) = ${currentYear}`)
+  })
+
   @column.dateTime()
   public startAt?: DateTime
 

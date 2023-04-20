@@ -10,10 +10,11 @@ export default class AdminsAalyticsController {
     // Dito ka mag code ng analytics boy
     const subscriptions = await Subscription.query()
       .select(Database.raw('MONTH(created_at) as month'), Database.raw('COUNT(*) as count'))
-      .where('status', 'active')
       .groupBy('month')
       .orderBy('month')
-      .scope('currentYear')
+      .withScopes((scopes) => scopes.currentYear())
+
+    console.log(subscriptions)
 
     const labels = [
       'January',
@@ -35,21 +36,19 @@ export default class AdminsAalyticsController {
     }
 
     subscriptions.forEach((subscription) => {
-      const index = subscription.month - 1
-      data.data[index] = subscription.count
+      const index = subscription.$extras.month - 1
+      data.data[index] = subscription.$extras.month
     })
 
-    return response.json({ data })
-  }
-  public async count({ response }: HttpContextContract) {
     const clientsCount = await Client.query().count('* as count')
     const coachesCount = await Coach.query().count('* as count')
     const adminCount = await Admin.query().count('* as count')
 
-    return response.ok({
-      clients: clientsCount[0].count,
-      coaches: coachesCount[0].count,
-      admin: adminCount[0].count,
+    return response.json({
+      data,
+      clients: clientsCount[0].$extras.count,
+      coaches: coachesCount[0].$extras.count,
+      admin: adminCount[0].$extras.count,
     })
   }
 }
