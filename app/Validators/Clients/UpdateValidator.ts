@@ -37,7 +37,7 @@ export default class UpdateValidator {
     workoutLevel: schema.enum.optional(WorkoutLevels),
     workoutPreference: schema.enum.optional(WorkoutPreferences),
     availability: schema.string.optional(),
-    coachGenderPreference: schema.enum(Genders),
+    coachGenderPreference: schema.enum.optional(Genders),
     goal: schema.string.optional(),
     notes: schema.string.optional(),
     line1: schema.string.optional({ trim: true }),
