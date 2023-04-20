@@ -7,7 +7,6 @@ import Client from 'App/Models/Client'
 
 export default class AdminsAalyticsController {
   public async index({ response }: HttpContextContract) {
-    // Dito ka mag code ng analytics boy
     const subscriptions = await Subscription.query()
       .select(Database.raw('MONTH(created_at) as month'), Database.raw('COUNT(*) as count'))
       .groupBy('month')
@@ -30,12 +29,12 @@ export default class AdminsAalyticsController {
     ]
     const data = {
       labels: labels,
-      data: Array(12).fill(0),
+      values: Array(12).fill(0),
     }
 
     subscriptions.forEach((subscription) => {
       const index = subscription.$extras.month - 1
-      data.data[index] = subscription.$extras.month
+      data.values[index] = subscription.$extras.month
     })
 
     const clientsCount = await Client.query().count('* as count')
