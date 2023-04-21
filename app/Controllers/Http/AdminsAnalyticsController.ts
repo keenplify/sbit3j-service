@@ -4,6 +4,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import Admin from 'App/Models/Admin'
 import Coach from 'App/Models/Coach'
 import Client from 'App/Models/Client'
+import Coaching from 'App/Models/Coaching'
 
 export default class AdminsAalyticsController {
   public async index({ response }: HttpContextContract) {
@@ -40,12 +41,14 @@ export default class AdminsAalyticsController {
     const clientsCount = await Client.query().count('* as count')
     const coachesCount = await Coach.query().count('* as count')
     const adminCount = await Admin.query().count('* as count')
+    const coachingsCount = await Coaching.query().count('* as count')
 
     return response.json({
       data,
       clients: clientsCount[0].$extras.count,
       coaches: coachesCount[0].$extras.count,
       admin: adminCount[0].$extras.count,
+      coaching: coachingsCount[0].$extras.count,
     })
   }
 }
