@@ -6,7 +6,7 @@ import Coach from 'App/Models/Coach'
 import Client from 'App/Models/Client'
 import Coaching from 'App/Models/Coaching'
 
-export default class AdminsAalyticsController {
+export default class AdminsAnalyticsController {
   public async index({ response }: HttpContextContract) {
     const subscriptions = await Subscription.query()
       .select(Database.raw('MONTH(created_at) as month'), Database.raw('COUNT(*) as count'))
