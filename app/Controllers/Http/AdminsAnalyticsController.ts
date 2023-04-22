@@ -43,8 +43,39 @@ export default class AdminsAnalyticsController {
     const adminCount = await Admin.query().count('* as count')
     const coachingsCount = await Coaching.query().count('* as count')
 
+    const coachings = await Client.query()
+      .select(Database.raw('MONTH(created_at) as month'), Database.raw('COUNT(*) as count'))
+      .groupBy('month')
+      .orderBy('month')
+      .withScopes((scopes) => scopes.currentYear())
+
+    const labels1 = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ]
+    const data1 = {
+      labels: labels1,
+      values: Array(12).fill(0),
+    }
+
+    coachings.forEach((coachings) => {
+      const index = coachings.$extras.month - 1
+      data.values[index] = coachings.$extras.month
+    })
+
     return response.json({
       data,
+      data1,
       clients: clientsCount[0].$extras.count,
       coaches: coachesCount[0].$extras.count,
       admin: adminCount[0].$extras.count,
