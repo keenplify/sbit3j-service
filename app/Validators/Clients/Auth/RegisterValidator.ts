@@ -38,6 +38,7 @@ export default class RegisterValidator {
     ]),
     phone: schema.string({ trim: true }, [rules.unique({ table: 'clients', column: 'phone' })]),
     password: schema.string({ trim: true }),
+    gender: schema.enum(Genders),
     line1: schema.string({ trim: true }),
     line2: schema.string({ trim: true }),
     city: schema.string({ trim: true }),
