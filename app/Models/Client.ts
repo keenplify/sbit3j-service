@@ -1,5 +1,5 @@
 import Authenticatable from 'App/Core/Models/Authenticatable'
-import { column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import { column, hasMany, HasMany, scope } from '@ioc:Adonis/Lucid/Orm'
 import Subscription from 'App/Models/Subscription'
 import SocialMedia from 'App/Models/SocialMedia'
 import { DateTime } from 'luxon'
@@ -10,6 +10,11 @@ import { Gender } from 'App/Enums/GenderEnum'
 import Coaching from 'App/Models/Coaching'
 
 export default class Client extends Authenticatable {
+  public static currentYear = scope((query) => {
+    const currentYear = new Date().getFullYear()
+    query.whereRaw(`YEAR(created_at) = ${currentYear}`)
+  })
+
   @column()
   public firstName: string
 

@@ -27,7 +27,7 @@ export default hashConfig({
   | free to change the default value
   |
   */
-  default: Env.get('HASH_DRIVER', 'scrypt'),
+  default: Env.get('HASH_DRIVER', 'laravelhash'),
 
   list: {
     /*
@@ -90,6 +90,11 @@ export default hashConfig({
     */
     bcrypt: {
       driver: 'bcrypt',
+      rounds: 10,
+    },
+    laravelhash: {
+      //@ts-expect-error Wrong type
+      driver: 'laravelhash',
       rounds: 10,
     },
   },

@@ -1,5 +1,6 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { Genders } from 'App/Enums/GenderEnum'
 
 export default class RegisterValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -33,6 +34,7 @@ export default class RegisterValidator {
     ]),
     phone: schema.string({ trim: true }),
     password: schema.string({ trim: true }),
+    gender: schema.enum(Genders),
   })
 
   /**

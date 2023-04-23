@@ -1,5 +1,6 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import { BaseResource } from 'App/Core/Resources/BaseResource'
+import { LaravelHash } from 'providers/HashProvider'
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
@@ -9,8 +10,13 @@ export default class AppProvider {
   }
 
   public async boot() {
+    const Hash = this.app.container.use('Adonis/Core/Hash')
     const Response = this.app.container.use('Adonis/Core/Response')
     const Request = this.app.container.use('Adonis/Core/Request')
+
+    Hash.extend('laravelHash', () => {
+      return new LaravelHash()
+    })
 
     Response.macro('resource', function (resource: BaseResource, code) {
       const payload: any = {}

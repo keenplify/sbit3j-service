@@ -14,23 +14,36 @@ export default class AdminsAnalyticsController {
       .orderBy('month')
       .withScopes((scopes) => scopes.currentYear())
 
+    const clients = await Client.query()
+      .select(Database.raw('MONTH(created_at) as month'), Database.raw('COUNT(*) as count'))
+      .groupBy('month')
+      .orderBy('month')
+      .withScopes((scopes) => scopes.currentYear())
+
+    const clientsCount = await Client.query().count('* as count')
+    const coachesCount = await Coach.query().count('* as count')
+    const adminCount = await Admin.query().count('* as count')
+    const coachingsCount = await Coaching.query().count('* as count')
+
     const labels = [
-      'January',
-      'February',
-      'March',
-      'April',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
       'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ]
+
     const data = {
       labels: labels,
       values: Array(12).fill(0),
+      clientValues: Array(12).fill(0),
     }
 
     subscriptions.forEach((subscription) => {
@@ -38,44 +51,13 @@ export default class AdminsAnalyticsController {
       data.values[index] = subscription.$extras.month
     })
 
-    const clientsCount = await Client.query().count('* as count')
-    const coachesCount = await Coach.query().count('* as count')
-    const adminCount = await Admin.query().count('* as count')
-    const coachingsCount = await Coaching.query().count('* as count')
-
-    const coachings = await Client.query()
-      .select(Database.raw('MONTH(created_at) as month'), Database.raw('COUNT(*) as count'))
-      .groupBy('month')
-      .orderBy('month')
-      .withScopes((scopes) => scopes.currentYear())
-
-    const labels1 = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ]
-    const data1 = {
-      labels: labels1,
-      values: Array(12).fill(0),
-    }
-
-    coachings.forEach((coachings) => {
-      const index = coachings.$extras.month - 1
-      data.values[index] = coachings.$extras.month
+    clients.forEach((client) => {
+      const index = client.$extras.month - 1
+      data.clientValues[index] = client.$extras.month
     })
 
     return response.json({
       data,
-      data1,
       clients: clientsCount[0].$extras.count,
       coaches: coachesCount[0].$extras.count,
       admin: adminCount[0].$extras.count,
