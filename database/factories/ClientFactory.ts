@@ -3,6 +3,10 @@ import Factory from '@ioc:Adonis/Lucid/Factory'
 import { Genders } from 'App/Enums/GenderEnum'
 import { WorkoutLevels } from 'App/Enums/WorkoutLevels'
 import { WorkoutPreferences } from 'App/Enums/WorkoutPreferences'
+import CoachingFactory from 'Database/factories/CoachingFactory'
+import SessionFactory from 'Database/factories/SessionFactory'
+import SocialMediaFactory from 'Database/factories/SocialMediaFactory'
+import SubscriptionFactory from 'Database/factories/SubscriptionFactory'
 
 export default Factory.define(Client, ({ faker }) => {
   const firstName = faker.name.firstName()
@@ -33,4 +37,9 @@ export default Factory.define(Client, ({ faker }) => {
     state: faker.address.state(),
     postalCode: faker.address.zipCode(),
   }
-}).build()
+})
+  .relation('coachings', () => CoachingFactory)
+  .relation('sessions', () => SessionFactory)
+  .relation('socialMedias', () => SocialMediaFactory)
+  .relation('subscriptions', () => SubscriptionFactory)
+  .build()

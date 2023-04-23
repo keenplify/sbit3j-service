@@ -12,7 +12,7 @@ export default class extends BaseSchema {
       table.integer('admin_id').unsigned().references('admins.id').onDelete('CASCADE').nullable()
 
       table.text('title').notNullable()
-      table.string('description').notNullable()
+      table.text('description').notNullable()
       table.integer('reps').notNullable() // Recommended reps, set and time lang pwede baguhin ni coach
       table.integer('sets').notNullable()
       table.integer('time').nullable()
