@@ -42,13 +42,13 @@ export default class AdminsAnalyticsController {
 
     const data = {
       labels: labels,
-      values: Array(12).fill(0),
+      subscriptionValues: Array(12).fill(0),
       clientValues: Array(12).fill(0),
     }
 
     subscriptions.forEach((subscription) => {
       const index = subscription.$extras.month - 1
-      data.values[index] = subscription.$extras.month
+      data.subscriptionValues[index] = subscription.$extras.month
     })
 
     clients.forEach((client) => {

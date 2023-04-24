@@ -5,7 +5,7 @@ import { DateTime } from 'luxon'
 
 export default Factory.define(Subscription, ({ faker }) => {
   const startAt = DateTime.now().plus({
-    day: faker.datatype.number({ min: -14, max: 14 }),
+    month: faker.datatype.number({ min: -6, max: 6 }),
   })
   const endAt = startAt.plus({ month: 1 })
 

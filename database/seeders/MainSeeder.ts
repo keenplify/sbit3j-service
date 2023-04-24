@@ -85,7 +85,7 @@ export default class extends BaseSeeder {
     const coaches = await CoachFactory.with('coachings', 3, (coachingBuilder) => {
       coachingBuilder.with('client', 3, (clientBuilder) => {
         clientBuilder.with('socialMedias', 2)
-        clientBuilder.with('subscriptions', 1, (subscriptionBuilder) =>
+        clientBuilder.with('subscriptions', 3, (subscriptionBuilder) =>
           subscriptionBuilder.merge({
             subscriptionProductId: 1,
           })
