@@ -4,11 +4,16 @@ import SubscriptionProductFactory from 'Database/factories/SubscriptionProductFa
 import { DateTime } from 'luxon'
 
 export default Factory.define(Subscription, ({ faker }) => {
+  const startAt = DateTime.now().plus({
+    day: faker.datatype.number({ min: -14, max: 14 }),
+  })
+  const endAt = startAt.plus({ month: 1 })
+
   return {
-    paymentDate: DateTime.now(),
+    paymentDate: startAt,
     paymentReceived: faker.datatype.number().toString(),
-    startAt: DateTime.now().minus({ days: 7 }),
-    endAt: DateTime.now().plus({ month: 1 }),
+    startAt,
+    endAt,
   }
 })
   .relation('subscriptionProduct', () => SubscriptionProductFactory)

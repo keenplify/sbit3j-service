@@ -10,12 +10,12 @@ export default class SessionsController {
   public async index({ response, auth }: HttpContextContract) {
     const user = auth.user!
 
-    const sessionsQuery = Session.query()
+    const sessionsQuery = Session.query().orderBy('updated_at', 'desc')
 
     if (user instanceof Client) {
-      sessionsQuery.where('clientId', user.id)
+      sessionsQuery.where('client_id', user.id)
     } else if (user instanceof Coach) {
-      sessionsQuery.where('coachId', user.id)
+      sessionsQuery.where('coach_id', user.id)
     }
 
     const sessions = await sessionsQuery
