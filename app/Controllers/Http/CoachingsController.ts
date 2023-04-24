@@ -39,6 +39,12 @@ export default class CoachingsController {
 
     const coaching = await Coaching.create(values)
 
+    const client = await Client.findOrFail(values.coachId)
+
+    client.requiresCoaching = false
+
+    await client.save()
+
     const resource = CoachingResource.make(coaching)
 
     return response.resource(resource)
@@ -48,6 +54,14 @@ export default class CoachingsController {
     const { id } = params
 
     const coaching = await Coaching.query().where('id', id).firstOrFail()
+
+    if (coaching.clientId) {
+      const client = await Client.findOrFail(coaching.coachId)
+
+      client.requiresCoaching = true
+
+      await client.save()
+    }
 
     await coaching.delete()
 

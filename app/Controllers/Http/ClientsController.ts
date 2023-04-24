@@ -2,14 +2,30 @@ import { Exception } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
 import { ClientResource } from 'App/Resources/ClientResource'
+import { ClientsIndexSchema } from 'App/Validators/Clients/IndexValidator'
 import StoreValidator from 'App/Validators/Clients/StoreValidator'
 import UpdateValidator from 'App/Validators/Clients/UpdateValidator'
 
 export default class ClientsController {
-  public async index({ response }: HttpContextContract) {
-    const clients = await Client.query().preload('coachings')
+  public async index({ request, response }: HttpContextContract) {
+    const { keyword } = await request.validate({
+      schema: ClientsIndexSchema,
+      data: request.qs(),
+    })
 
-    const resource = ClientResource.collection(clients)
+    const clientsQuery = Client.query().preload('coachings').orderBy('requiresCoaching', 'desc')
+
+    if (keyword !== undefined && keyword.length > 0) {
+      clientsQuery.orWhere((query) => {
+        query.orWhere('firstName', 'like', `%${keyword}%`)
+        query.orWhere('middleName', 'like', `%${keyword}%`)
+        query.orWhere('lastName', 'like', `%${keyword}%`)
+        query.orWhere('email', 'like', `%${keyword}%`)
+        query.orWhere('phone', 'like', `%${keyword}%`)
+      })
+    }
+
+    const resource = ClientResource.collection(await clientsQuery)
 
     return response.resource(resource)
   }

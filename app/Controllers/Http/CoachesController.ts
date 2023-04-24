@@ -1,14 +1,30 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Coach from 'App/Models/Coach'
 import { CoachResource } from 'App/Resources/CoachResource'
+import { CoachesIndexSchema } from 'App/Validators/Coaches/IndexValidator'
 import StoreValidator from 'App/Validators/Coaches/StoreValidator'
 import UpdateValidator from 'App/Validators/Coaches/UpdateValidator'
 
 export default class CoachesController {
-  public async index({ response }: HttpContextContract) {
-    const coaches = await Coach.query()
+  public async index({ request, response }: HttpContextContract) {
+    const { keyword } = await request.validate({
+      schema: CoachesIndexSchema,
+      data: request.qs(),
+    })
 
-    const resource = CoachResource.collection(coaches)
+    const coachesQuery = Coach.query()
+
+    if (keyword !== undefined && keyword.length > 0) {
+      coachesQuery.orWhere((query) => {
+        query.orWhere('firstName', 'like', `%${keyword}%`)
+        query.orWhere('middleName', 'like', `%${keyword}%`)
+        query.orWhere('lastName', 'like', `%${keyword}%`)
+        query.orWhere('email', 'like', `%${keyword}%`)
+        query.orWhere('phone', 'like', `%${keyword}%`)
+      })
+    }
+
+    const resource = CoachResource.collection(await coachesQuery)
 
     return response.resource(resource)
   }
