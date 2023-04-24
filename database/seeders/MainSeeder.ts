@@ -105,7 +105,9 @@ export default class extends BaseSeeder {
         await SessionFactory.merge({
           coachId: coaching.coachId,
           clientId: coaching.clientId,
-        }).createMany(3)
+        })
+          .with('workouts', 5)
+          .createMany(3)
       }
     }
   }
