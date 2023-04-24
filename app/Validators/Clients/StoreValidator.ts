@@ -7,7 +7,7 @@ export default class StoreValidator {
 
   public schema = schema.create({
     firstName: schema.string({ trim: true }),
-    middleName: schema.string({ trim: true }),
+    middleName: schema.string.optional({ trim: true }),
     lastName: schema.string({ trim: true }),
     age: schema.number(),
     email: schema.string({ trim: true }, [
