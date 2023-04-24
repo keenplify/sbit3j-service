@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Subscription from 'App/Models/Subscription'
-import Database from '@ioc:Adonis/Lucid/Database'
 import Admin from 'App/Models/Admin'
 import Coach from 'App/Models/Coach'
 import Client from 'App/Models/Client'
@@ -8,17 +7,9 @@ import Coaching from 'App/Models/Coaching'
 
 export default class AdminsAnalyticsController {
   public async index({ response }: HttpContextContract) {
-    const subscriptions = await Subscription.query()
-      .select(Database.raw('MONTH(created_at) as month'), Database.raw('COUNT(*) as count'))
-      .groupBy('month')
-      .orderBy('month')
-      .withScopes((scopes) => scopes.currentYear())
+    const subscriptions = await Subscription.query().withScopes((scopes) => scopes.currentYear())
 
-    const clients = await Client.query()
-      .select(Database.raw('MONTH(created_at) as month'), Database.raw('COUNT(*) as count'))
-      .groupBy('month')
-      .orderBy('month')
-      .withScopes((scopes) => scopes.currentYear())
+    const clients = await Client.query().withScopes((scopes) => scopes.currentYear())
 
     const clientsCount = await Client.query().count('* as count')
     const coachesCount = await Coach.query().count('* as count')
@@ -47,13 +38,15 @@ export default class AdminsAnalyticsController {
     }
 
     subscriptions.forEach((subscription) => {
-      const index = subscription.$extras.month - 1
-      data.subscriptionValues[index] = subscription.$extras.month
+      const month = subscription.startAt?.month
+
+      if (month) data.subscriptionValues[month] += 1
     })
 
     clients.forEach((client) => {
-      const index = client.$extras.month - 1
-      data.clientValues[index] = client.$extras.month
+      const month = client.createdAt?.month
+
+      if (month) data.clientValues[month] += 1
     })
 
     return response.json({
