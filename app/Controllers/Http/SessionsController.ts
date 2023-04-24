@@ -18,7 +18,7 @@ export default class SessionsController {
       sessionsQuery.where('coach_id', user.id)
     }
 
-    const sessions = await sessionsQuery
+    const sessions = await sessionsQuery.preload('workouts')
 
     const resource = SessionResource.collection(sessions)
 
