@@ -40,13 +40,13 @@ export default class AdminsAnalyticsController {
     subscriptions.forEach((subscription) => {
       const month = subscription.startAt?.month
 
-      if (month) data.subscriptionValues[month] += 1
+      if (month) data.subscriptionValues[month - 1] += 1
     })
 
     clients.forEach((client) => {
       const month = client.createdAt?.month
 
-      if (month) data.clientValues[month] += 1
+      if (month) data.clientValues[month - 1] += 1
     })
 
     return response.json({
