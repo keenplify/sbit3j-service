@@ -15,6 +15,9 @@ export default class AdminsAnalyticsController {
     const coachesCount = await Coach.query().count('* as count')
     const adminCount = await Admin.query().count('* as count')
     const coachingsCount = await Coaching.query().count('* as count')
+    const subscriptionsCount = await Subscription.query()
+      .whereNotNull('paymentReceived')
+      .count('* as count')
 
     const labels = [
       'Jan',
@@ -55,6 +58,7 @@ export default class AdminsAnalyticsController {
       coaches: coachesCount[0].$extras.count,
       admin: adminCount[0].$extras.count,
       coaching: coachingsCount[0].$extras.count,
+      subscriptions: subscriptionsCount[0].$extras.count,
     })
   }
 }
