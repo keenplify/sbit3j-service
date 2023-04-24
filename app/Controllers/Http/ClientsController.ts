@@ -7,7 +7,7 @@ import UpdateValidator from 'App/Validators/Clients/UpdateValidator'
 
 export default class ClientsController {
   public async index({ response }: HttpContextContract) {
-    const clients = await Client.query()
+    const clients = await Client.query().preload('coachings')
 
     const resource = ClientResource.collection(clients)
 

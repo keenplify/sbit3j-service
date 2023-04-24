@@ -1,6 +1,7 @@
 import { ModelObject } from '@ioc:Adonis/Lucid/Orm'
 import { BaseResource } from 'App/Core/Resources/BaseResource'
 import Client from 'App/Models/Client'
+import { CoachingResource } from 'App/Resources/CoachingResource'
 import { SocialMediaResource } from 'App/Resources/SocialMediaResource'
 import { SubscriptionResource } from 'App/Resources/SubscriptionResource'
 
@@ -37,6 +38,7 @@ export class ClientResource extends BaseResource {
       socialMedias: model.socialMedias
         ? SocialMediaResource.collection(model.socialMedias)
         : undefined,
+      coachings: model.coachings ? CoachingResource.collection(model.coachings) : undefined,
     }
   }
 }
