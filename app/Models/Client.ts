@@ -48,7 +48,7 @@ export default class Client extends Authenticatable {
   @column()
   public gender: Gender
 
-  @column()
+  @column({ serialize: Boolean })
   public requiresCoaching?: boolean | null
 
   @column()

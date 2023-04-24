@@ -26,7 +26,7 @@ export default class SessionWorkout extends Model {
   @column()
   public youtubeUrl?: string
 
-  @column()
+  @column({ serialize: Boolean })
   public isDone: boolean
 
   @column()
