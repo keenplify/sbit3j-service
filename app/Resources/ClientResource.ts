@@ -27,6 +27,8 @@ export class ClientResource extends BaseResource {
       workoutPreference: model.workoutPreference,
       availability: model.availability,
       coachGenderPreference: model.coachGenderPreference,
+      goal: model.goal,
+      notes: model.notes,
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
       subscriptions: model.subscriptions
