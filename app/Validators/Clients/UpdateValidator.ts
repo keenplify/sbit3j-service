@@ -45,6 +45,7 @@ export default class UpdateValidator {
     city: schema.string.optional({ trim: true }),
     state: schema.string.optional({ trim: true }),
     postalCode: schema.string.optional({ trim: true }),
+    requiresCoaching: schema.boolean.optional(),
   })
 
   /**
