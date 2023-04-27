@@ -12,11 +12,11 @@ export default class CoachingsController {
     const coachingQuery = Coaching.query()
 
     if (user instanceof Client) {
-      coachingQuery.where('client_id', user.id)
+      coachingQuery.where('client_id', user.id).preload('coach')
     }
 
     if (user instanceof Coach) {
-      coachingQuery.where('coach_id', user.id)
+      coachingQuery.where('coach_id', user.id).preload('client')
     }
 
     const resource = CoachingResource.collection(await coachingQuery)
@@ -27,7 +27,11 @@ export default class CoachingsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params
 
-    const coaching = await Coaching.findOrFail(id)
+    const coaching = await Coaching.query()
+      .preload('client')
+      .preload('coach')
+      .where('id', id)
+      .firstOrFail()
 
     const resource = CoachingResource.make(coaching)
 

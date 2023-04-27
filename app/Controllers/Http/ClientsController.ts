@@ -1,13 +1,16 @@
 import { Exception } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
+import Coach from 'App/Models/Coach'
 import { ClientResource } from 'App/Resources/ClientResource'
 import { ClientsIndexSchema } from 'App/Validators/Clients/IndexValidator'
 import StoreValidator from 'App/Validators/Clients/StoreValidator'
 import UpdateValidator from 'App/Validators/Clients/UpdateValidator'
 
 export default class ClientsController {
-  public async index({ request, response }: HttpContextContract) {
+  public async index({ request, response, auth }: HttpContextContract) {
+    const user = auth.user!
+
     const { keyword } = await request.validate({
       schema: ClientsIndexSchema,
       data: request.qs(),
@@ -23,6 +26,12 @@ export default class ClientsController {
         query.orWhere('email', 'like', `%${keyword}%`)
         query.orWhere('phone', 'like', `%${keyword}%`)
       })
+    }
+
+    if (user instanceof Coach) {
+      clientsQuery.whereHas('coachings', (coachingBuilder) =>
+        coachingBuilder.where('coachId', user.id)
+      )
     }
 
     const resource = ClientResource.collection(await clientsQuery)
