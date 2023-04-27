@@ -99,6 +99,7 @@ export default class Client extends Authenticatable {
       .where('client_id', this.id)
       .where('start_at', '<=', today.startOf('day').toISO())
       .where('end_at', '>=', today.endOf('day').toISO())
+      .preload('subscriptionProduct')
       .first()
 
     return subscription
