@@ -13,6 +13,7 @@ export class WorkoutResource extends BaseResource {
       set: model.sets,
       imageUrl: model.imageUrl,
       youtubeUrl: model.youtubeUrl,
+      isDone: model instanceof SessionWorkout ? model.isDone : undefined,
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
     }
