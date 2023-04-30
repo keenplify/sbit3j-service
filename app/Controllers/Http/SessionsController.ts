@@ -3,19 +3,33 @@ import Client from 'App/Models/Client'
 import Coach from 'App/Models/Coach'
 import Session from 'App/Models/Session'
 import { SessionResource } from 'App/Resources/SessionResource'
+import { SessionListSchema } from 'App/Validators/Sessions/ListValidator'
 import SessionStoreValidator from 'App/Validators/Sessions/StoreValidator'
 import SessionUpdateValidator from 'App/Validators/Sessions/UpdateValidator'
 
 export default class SessionsController {
-  public async index({ response, auth }: HttpContextContract) {
+  public async index({ response, auth, request }: HttpContextContract) {
     const user = auth.user!
+
+    const { clientId, coachId } = await request.validate({
+      schema: SessionListSchema,
+      data: request.qs,
+    })
 
     const sessionsQuery = Session.query().orderBy('updated_at', 'desc')
 
-    if (user instanceof Client) {
-      sessionsQuery.where('client_id', user.id)
-    } else if (user instanceof Coach) {
-      sessionsQuery.where('coach_id', user.id)
+    if (user instanceof Client || clientId !== undefined) {
+      if (clientId) {
+        sessionsQuery.where('client_id', clientId)
+      } else {
+        sessionsQuery.where('client_id', user.id)
+      }
+    } else if (user instanceof Coach || coachId !== undefined) {
+      if (coachId) {
+        sessionsQuery.where('coach_id', coachId)
+      } else {
+        sessionsQuery.where('coach_id', user.id)
+      }
     }
 
     const sessions = await sessionsQuery.preload('workouts')
