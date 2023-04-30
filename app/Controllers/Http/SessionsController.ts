@@ -97,7 +97,7 @@ export default class SessionsController {
     return response.resource(resource)
   }
 
-  public async resetSession({ params, response }: HttpContextContract) {
+  public async reset({ params, response }: HttpContextContract) {
     const { id } = params
 
     await SessionWorkout.query().where('sessionId', id).update({

@@ -32,6 +32,12 @@ Route.group(() => {
     Route.resource('session-workouts', 'SessionWorkoutsController')
       .apiOnly()
       .only(['show', 'store', 'update', 'destroy'])
+
+    Route.group(() => {
+      Route.post('reset', 'SessionsController.reset').as('reset')
+    })
+      .prefix('sessions')
+      .as('sessions')
   }).middleware('auth:coach')
 })
   .prefix('v1/coach')
