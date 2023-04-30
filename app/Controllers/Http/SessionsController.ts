@@ -13,7 +13,7 @@ export default class SessionsController {
 
     const { clientId, coachId } = await request.validate({
       schema: SessionListSchema,
-      data: request.qs,
+      data: request.qs(),
     })
 
     const sessionsQuery = Session.query().orderBy('updated_at', 'desc')
