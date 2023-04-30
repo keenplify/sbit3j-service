@@ -18,18 +18,16 @@ export default class SessionsController {
 
     const sessionsQuery = Session.query().orderBy('updated_at', 'desc')
 
-    if (user instanceof Client || clientId !== undefined) {
-      if (clientId) {
-        sessionsQuery.where('client_id', clientId)
-      } else {
-        sessionsQuery.where('client_id', user.id)
-      }
-    } else if (user instanceof Coach || coachId !== undefined) {
-      if (coachId) {
-        sessionsQuery.where('coach_id', coachId)
-      } else {
-        sessionsQuery.where('coach_id', user.id)
-      }
+    if (clientId) {
+      sessionsQuery.where('client_id', clientId)
+    } else if (user instanceof Client) {
+      sessionsQuery.where('client_id', user.id)
+    }
+
+    if (coachId !== undefined) {
+      sessionsQuery.where('coach_id', coachId)
+    } else if (user instanceof Coach) {
+      sessionsQuery.where('coach_id', user.id)
     }
 
     const sessions = await sessionsQuery.preload('workouts')
