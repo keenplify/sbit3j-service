@@ -34,7 +34,7 @@ Route.group(() => {
       .only(['show', 'store', 'update', 'destroy'])
 
     Route.group(() => {
-      Route.post('reset', 'SessionsController.reset').as('reset')
+      Route.post('/:id/reset', 'SessionsController.reset').as('reset')
     })
       .prefix('sessions')
       .as('sessions')
