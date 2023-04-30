@@ -31,10 +31,16 @@ export default class SessionWorkoutsController {
     return response.resource(resource)
   }
 
-  public async update({ request, response }: HttpContextContract) {
+  public async update({ request, response, params }: HttpContextContract) {
+    const { id } = params
+
     const values = await request.validate(SessionWorkoutUpdateValidator)
 
-    const workout = await SessionWorkout.create(values)
+    const workout = await SessionWorkout.findOrFail(id)
+
+    workout.merge(values)
+
+    await workout.save()
 
     const resource = WorkoutResource.make(workout)
 
