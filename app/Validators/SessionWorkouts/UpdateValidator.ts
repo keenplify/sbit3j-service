@@ -31,6 +31,7 @@ export default class SessionWorkoutUpdateValidator {
     time: schema.number.optional(),
     imageUrl: schema.string.optional(),
     youtubeUrl: schema.string.optional(),
+    isDone: schema.boolean.optional(),
   })
 
   /**
