@@ -37,6 +37,12 @@ Route.group(() => {
     Route.resource('social-medias', 'SocialMediasController')
       .apiOnly()
       .only(['index', 'show', 'destroy', 'store', 'update'])
+
+    Route.group(() => {
+      Route.post('/:id/reset', 'SessionsController.reset').as('reset')
+    })
+      .prefix('sessions')
+      .as('sessions')
   }).middleware('auth:client')
 })
   .prefix('v1/client')
