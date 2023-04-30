@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
 import Coach from 'App/Models/Coach'
 import Session from 'App/Models/Session'
+import SessionWorkout from 'App/Models/SessionWorkout'
 import { SessionResource } from 'App/Resources/SessionResource'
 import { SessionListSchema } from 'App/Validators/Sessions/ListValidator'
 import SessionStoreValidator from 'App/Validators/Sessions/StoreValidator'
@@ -94,6 +95,16 @@ export default class SessionsController {
     const resource = SessionResource.make(session)
 
     return response.resource(resource)
+  }
+
+  public async resetSession({ params, response }: HttpContextContract) {
+    const { id } = params
+
+    await SessionWorkout.query().where('sessionId', id).update({
+      isDone: false,
+    })
+
+    return response.noContent()
   }
 
   public async destroy({ params, response }: HttpContextContract) {
