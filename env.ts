@@ -44,4 +44,9 @@ export default Env.rules({
   S3_REGION: Env.schema.string(),
   S3_ENDPOINT: Env.schema.string.optional(),
   S3_FORCE_PATH_STYLE: Env.schema.boolean.optional(),
+  PG_HOST: Env.schema.string({ format: 'host' }),
+  PG_PORT: Env.schema.number(),
+  PG_USER: Env.schema.string(),
+  PG_PASSWORD: Env.schema.string.optional(),
+  PG_DB_NAME: Env.schema.string(),
 })
