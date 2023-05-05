@@ -11,6 +11,7 @@ export class WorkoutResource extends BaseResource {
       description: model.description,
       reps: model.reps,
       set: model.sets,
+      time: model.time,
       imageUrl: model.imageUrl,
       youtubeUrl: model.youtubeUrl,
       isDone: model instanceof SessionWorkout ? model.isDone : undefined,
