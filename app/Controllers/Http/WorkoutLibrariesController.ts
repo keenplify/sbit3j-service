@@ -22,8 +22,8 @@ export default class WorkoutLibrariesController {
 
     if (keyword !== undefined && keyword.length > 0) {
       libraryQuery
-        .where('title', 'like', `%${keyword}%`)
-        .orWhere((query) => query.where('description', 'like', `%${keyword}%`))
+        .where('title', 'ilike', `%${keyword}%`)
+        .orWhere((query) => query.where('description', 'ilike', `%${keyword}%`))
 
       await this.scrapeExerciseDB(keyword)
     }
@@ -109,6 +109,8 @@ export default class WorkoutLibrariesController {
           headers,
         }
       )
+
+      console.log(response)
 
       const data = (await response.json()) as ExerciseDBResponseData
 
