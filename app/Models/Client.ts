@@ -12,7 +12,7 @@ import Coaching from 'App/Models/Coaching'
 export default class Client extends Authenticatable {
   public static currentYear = scope((query) => {
     const currentYear = DateTime.now().startOf('year')
-    query.where('start_at', '>=', currentYear.toJSDate())
+    query.where('created_at', '>=', currentYear.toJSDate())
   })
 
   @column()
