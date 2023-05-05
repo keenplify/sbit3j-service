@@ -84,6 +84,8 @@ export default class WorkoutLibrariesController {
   }
 
   public async scrapeExerciseDB(keyword: string) {
+    Logger.info(`Scraping '${keyword}'...`)
+
     const scraped = await ExerciseDbScrape.query()
       .where('keyword', keyword.toLocaleLowerCase())
       .first()

@@ -7,8 +7,8 @@ import SubscriptionProduct from 'App/Models/SubscriptionProduct'
 
 export default class Subscription extends Model {
   public static currentYear = scope((query) => {
-    const currentYear = new Date().getFullYear()
-    query.whereRaw(`YEAR(created_at) = ${currentYear}`)
+    const currentYear = DateTime.now().startOf('year')
+    query.where('start_at', '>=', currentYear.toJSDate())
   })
 
   @column.dateTime()
