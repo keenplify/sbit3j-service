@@ -38,7 +38,7 @@ export class ClientResource extends BaseResource {
       socialMedias: model.socialMedias
         ? SocialMediaResource.collection(model.socialMedias)
         : undefined,
-      coachings: model.coachings ? CoachingResource.collection(model.coachings) : undefined,
+      coachings: CoachingResource.collection(this.whenLoaded(model.coachings)),
     }
   }
 }

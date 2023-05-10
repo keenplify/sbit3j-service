@@ -42,7 +42,7 @@ export default class ClientsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params
 
-    const client = await Client.findOrFail(id)
+    const client = await Client.query().where('id', id).preload('coachings').firstOrFail()
 
     const resource = ClientResource.make(client)
 

@@ -41,11 +41,11 @@ export default class CoachingsController {
   public async store({ request, response }: HttpContextContract) {
     const values = await request.validate(StoreValidator)
 
-    const coaching = await Coaching.create(values)
-
     const client = await Client.findOrFail(values.clientId)
 
     await client.related('coachings').query().delete()
+
+    const coaching = await Coaching.create(values)
 
     client.requiresCoaching = false
 
