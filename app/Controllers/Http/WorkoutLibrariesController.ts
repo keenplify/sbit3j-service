@@ -28,7 +28,7 @@ export default class WorkoutLibrariesController {
       await this.scrapeExerciseDB(keyword)
     }
 
-    const library = await libraryQuery.paginate(page)
+    const library = await libraryQuery.paginate(page, 25)
 
     const resource = WorkoutResource.pagination(library)
 
