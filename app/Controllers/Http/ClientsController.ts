@@ -16,7 +16,7 @@ export default class ClientsController {
       data: request.qs(),
     })
 
-    const clientsQuery = Client.query().preload('coachings').orderBy('requires_coaching', 'asc')
+    const clientsQuery = Client.query().preload('coachings')
 
     if (keyword !== undefined && keyword.length > 0) {
       clientsQuery.orWhere((query) => {
@@ -34,7 +34,7 @@ export default class ClientsController {
       )
     }
 
-    const resource = ClientResource.collection(await clientsQuery)
+    const resource = ClientResource.collection(this.sortClients(await clientsQuery))
 
     return response.resource(resource)
   }
@@ -88,5 +88,28 @@ export default class ClientsController {
     await client.delete()
 
     return response.status(204)
+  }
+
+  private sortClients(clients: Client[]) {
+    return clients.sort((a, b) => {
+      // Sort clients with `requiresCoaching = true` to the top
+      if (a.requiresCoaching && !b.requiresCoaching) {
+        return -1
+      }
+      if (!a.requiresCoaching && b.requiresCoaching) {
+        return 1
+      }
+
+      // Sort clients with fewer `coachings` to the top
+      if (a.coachings.length < b.coachings.length) {
+        return -1
+      }
+      if (a.coachings.length > b.coachings.length) {
+        return 1
+      }
+
+      // If both clients have the same number of `coachings`, preserve the original order
+      return 0
+    })
   }
 }
