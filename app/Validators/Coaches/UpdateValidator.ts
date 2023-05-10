@@ -28,7 +28,7 @@ export default class UpdateValidator {
     middleName: schema.string.optional(),
     lastName: schema.string.optional(),
     phone: schema.string.optional([rules.unique({ table: 'coaches', column: 'phone' })]),
-    pasword: schema.string.optional(),
+    password: schema.string.optional(),
   })
 
   /**
