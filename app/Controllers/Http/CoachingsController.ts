@@ -45,6 +45,8 @@ export default class CoachingsController {
 
     const client = await Client.findOrFail(values.coachId)
 
+    await client.related('coachings').query().delete()
+
     client.requiresCoaching = false
 
     await client.save()
