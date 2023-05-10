@@ -16,7 +16,7 @@ export default class ClientsController {
       data: request.qs(),
     })
 
-    const clientsQuery = Client.query().preload('coachings').orderBy('requiresCoaching', 'desc')
+    const clientsQuery = Client.query().preload('coachings').orderBy('requires_coaching', 'asc')
 
     if (keyword !== undefined && keyword.length > 0) {
       clientsQuery.orWhere((query) => {
