@@ -43,7 +43,7 @@ export default class CoachingsController {
 
     const coaching = await Coaching.create(values)
 
-    const client = await Client.findOrFail(values.coachId)
+    const client = await Client.findOrFail(values.clientId)
 
     await client.related('coachings').query().delete()
 
