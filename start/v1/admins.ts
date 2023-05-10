@@ -22,7 +22,7 @@ Route.group(() => {
     Route.resource('analytics', 'AdminsAnalyticsController').apiOnly().only(['index'])
     Route.resource('clients', 'ClientsController')
       .apiOnly()
-      .only(['index', 'show', 'update', 'store'])
+      .only(['index', 'show', 'update', 'store', 'destroy'])
     Route.resource('admins', 'AdminsController')
       .apiOnly()
       .only(['index', 'show', 'store', 'update', 'destroy'])
