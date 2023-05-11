@@ -13,7 +13,7 @@ export default class extends BaseSchema {
       table.string('phone').notNullable().unique()
       table.string('password').notNullable()
       table.string('gender').notNullable()
-      table.boolean('requires_coaching').nullable()
+      table.boolean('requires_coaching').nullable().defaultTo(false)
 
       table.string('line1').notNullable()
       table.string('line2').notNullable()

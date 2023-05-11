@@ -50,6 +50,7 @@ export default class Client extends Authenticatable {
 
   @column({
     consume: (value) => Boolean(value),
+    prepare: (value) => Boolean(value),
   })
   public requiresCoaching?: boolean | null
 
