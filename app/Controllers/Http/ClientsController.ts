@@ -64,8 +64,9 @@ export default class ClientsController {
 
     const { id } = params
 
-    if (user instanceof Client && user.id !== Number.parseInt(id))
+    if (user instanceof Client && user.id !== Number.parseInt(id)) {
       throw new Exception('Blocked - you have no access to this endpoint', 401)
+    }
 
     const values = await request.validate(UpdateValidator)
 
