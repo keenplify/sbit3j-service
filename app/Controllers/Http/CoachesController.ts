@@ -12,7 +12,9 @@ export default class CoachesController {
       data: request.qs(),
     })
 
-    const coachesQuery = Coach.query()
+    const coachesQuery = Coach.query().preload('coachings', (coachings) =>
+      coachings.preload('client')
+    )
 
     if (keyword !== undefined && keyword.length > 0) {
       coachesQuery.orWhere((query) => {
@@ -32,7 +34,10 @@ export default class CoachesController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params
 
-    const coach = await Coach.findOrFail(id)
+    const coach = await Coach.query()
+      .preload('coachings', (coachings) => coachings.preload('client'))
+      .where('id', id)
+      .firstOrFail()
 
     const resource = CoachResource.make(coach)
 
