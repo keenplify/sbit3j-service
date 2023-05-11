@@ -93,7 +93,6 @@ export default class ClientsController {
 
   private sortClients(clients: Client[]) {
     return clients.sort((a, b) => {
-      // Sort clients with `requiresCoaching = true` to the top
       if (a.requiresCoaching && !b.requiresCoaching) {
         return -1
       }
@@ -101,7 +100,6 @@ export default class ClientsController {
         return 1
       }
 
-      // Sort clients with fewer `coachings` to the top
       if (a.coachings.length < b.coachings.length) {
         return -1
       }
@@ -109,7 +107,6 @@ export default class ClientsController {
         return 1
       }
 
-      // If both clients have the same number of `coachings`, preserve the original order
       return 0
     })
   }
