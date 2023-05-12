@@ -34,6 +34,10 @@ export default class PaymongoWebhookController {
       data: request.qs(),
     })
 
+    if (!payment_intent_id) {
+      return response.redirect('http://thegymstreet-payments.vercel.app/subscription')
+    }
+
     const paymentIntent = await paymongo.fetchPaymentIntent({
       headers: {
         Authorization: Env.get('PAYMONGO_SECRET_KEY'),
