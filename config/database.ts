@@ -42,7 +42,7 @@ const databaseConfig: DatabaseConfig = {
       pool: {
         afterCreate: (conn, cb) => {
           conn.run('PRAGMA foreign_keys=true', cb)
-        }
+        },
       },
       migrations: {
         naturalSort: true,
@@ -79,7 +79,34 @@ const databaseConfig: DatabaseConfig = {
       debug: false,
     },
 
-  }
+    /*
+    |--------------------------------------------------------------------------
+    | PostgreSQL config
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for PostgreSQL database. Make sure to install the driver
+    | from npm when using this connection
+    |
+    | npm i pg
+    |
+    */
+    pg: {
+      client: 'pg',
+      connection: {
+        host: Env.get('PG_HOST'),
+        port: Env.get('PG_PORT'),
+        user: Env.get('PG_USER'),
+        password: Env.get('PG_PASSWORD', ''),
+        database: Env.get('PG_DB_NAME'),
+        ssl: true,
+      },
+      migrations: {
+        naturalSort: true,
+      },
+      healthCheck: false,
+      debug: false,
+    },
+  },
 }
 
 export default databaseConfig

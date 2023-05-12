@@ -13,6 +13,14 @@
 import 'reflect-metadata'
 import sourceMapSupport from 'source-map-support'
 import { Ignitor } from '@adonisjs/core/build/standalone'
+import fetch, { Headers, Request, Response } from 'node-fetch'
+
+if (!globalThis.fetch) {
+  globalThis.fetch = fetch
+  globalThis.Headers = Headers
+  globalThis.Request = Request
+  globalThis.Response = Response
+}
 
 sourceMapSupport.install({ handleUncaughtExceptions: false })
 
