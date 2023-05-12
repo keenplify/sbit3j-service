@@ -17,8 +17,11 @@
 | import './routes/customer'
 |
 */
+import Route from '@ioc:Adonis/Core/Route'
 
-
+Route.get('/', ({ response }) => {
+  return response.noContent()
+})
 
 import './v1/coaches'
 import './v1/clients'
