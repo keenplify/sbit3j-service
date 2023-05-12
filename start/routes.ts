@@ -20,7 +20,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', ({ response }) => {
-  return response.noContent()
+  return response.status(200).send()
 })
 
 import './v1/coaches'
