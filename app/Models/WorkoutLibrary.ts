@@ -39,7 +39,12 @@ export default class WorkoutLibrary extends Model {
   }
 
   public get muscleGroups() {
-    const data = MuscleGroupSchema.parse(JSON.parse(this.muscleGroupsJson))
-    return data
+    if (typeof this.muscleGroupsJson === 'object') return this.muscleGroupsJson as MuscleGroup[]
+    else if (typeof this.muscleGroupsJson === 'string') {
+      const data = MuscleGroupSchema.parse(JSON.parse(this.muscleGroupsJson))
+      return data
+    } else {
+      return []
+    }
   }
 }
