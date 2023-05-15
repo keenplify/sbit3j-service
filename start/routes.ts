@@ -23,6 +23,10 @@ Route.get('/', ({ response }) => {
   return response.status(200).send('Hello World')
 })
 
+Route.get('/health', ({ response }) => {
+  return response.status(200).send('')
+})
+
 import './v1/coaches'
 import './v1/clients'
 import './v1/admins'
