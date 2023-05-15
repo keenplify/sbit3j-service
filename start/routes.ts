@@ -20,10 +20,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', ({ response }) => {
-  return response.status(200).send('Hello World')
-})
-
-Route.get('/health', ({ response }) => {
   const check = {
     uptime: process.uptime(),
     message: 'OK',
