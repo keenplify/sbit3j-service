@@ -24,7 +24,18 @@ Route.get('/', ({ response }) => {
 })
 
 Route.get('/health', ({ response }) => {
-  return response.status(200).send('')
+  const check = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now(),
+  }
+
+  try {
+    response.status(200).send(check)
+  } catch (error) {
+    check.message = error
+    response.status(53).send('')
+  }
 })
 
 import './v1/coaches'
